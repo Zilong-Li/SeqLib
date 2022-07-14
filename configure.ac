@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.59) ## specificy version of autoconf
-AC_INIT(seqkit, 1.0, jeremiah.wala@gmail.com)
+AC_PREREQ([2.71]) ## specificy version of autoconf
+AC_INIT([seqkit],[1.0],[jeremiah.wala@gmail.com])
 AM_INIT_AUTOMAKE(foreign)
 AC_CONFIG_SRCDIR([src/BamReader.cpp])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE([disable])
 ##m4_include([m4/m4_ax_openmp.m4])
 
@@ -43,6 +43,6 @@ AC_SUBST(LIBS, "$LIBS -pthread")
 
 AC_CONFIG_FILES([Makefile
 	         src/Makefile
-	         src/seqtools/Makefile])	
+	         ])
 
 AC_OUTPUT

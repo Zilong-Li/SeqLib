@@ -20,7 +20,6 @@ extern "C" {
 
 #include "SeqLib/SeqLibUtils.h"
 #include "SeqLib/GenomicRegion.h"
-#include "SeqLib/UnalignedSequence.h"
 
 static const char BASES[16] = {' ', 'A', 'C', ' ',
                                'G', ' ', ' ', ' ', 

@@ -2,6 +2,6 @@ noinst_LIBRARIES = libseqlib.a
 
 libseqlib_a_CPPFLAGS =  -I../htslib -Wno-sign-compare
 
-libseqlib_a_SOURCES =   FastqReader.cpp BFC.cpp ReadFilter.cpp SeqPlot.cpp ssw_cpp.cpp ssw.c \
+libseqlib_a_SOURCES = ReadFilter.cpp SeqPlot.cpp ssw_cpp.cpp ssw.c \
 			GenomicRegion.cpp RefGenome.cpp BamWriter.cpp BamReader.cpp \
-			BWAWrapper.cpp BamRecord.cpp FermiAssembler.cpp BamHeader.cpp jsoncpp.cpp
+			BamRecord.cpp BamHeader.cpp
