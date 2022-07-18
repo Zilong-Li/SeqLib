@@ -1,7 +1,7 @@
 #include "SeqLib/BamReader.h"
 #include "catch.hh"
 
-#define INSAM "../htslib/test/realn02.sam"
+#define INSAM "../htslib/test/range.bam"
 
 using namespace SeqLib;
 
