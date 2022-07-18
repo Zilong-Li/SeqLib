@@ -9,7 +9,6 @@ docs
 *.gcno
 *.gcov
 .*
-Test
 autom4te.cache
 .Rhistory
 .in
@@ -27,7 +26,6 @@ back*
 *.bam
 stamp-h1
 config.status
-Makefile
 *.pico
 benchmark
 config.status
