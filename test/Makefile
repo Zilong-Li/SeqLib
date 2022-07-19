@@ -1,33 +1,34 @@
 # detect OS architecture and add flags
-OS      := $(shell uname -s)
 CXX     ?= g++
 CXXFLAGS = -std=c++11 -Wall -O2
 # https://github.com/samtools/htslib/issues/1176#issuecomment-722033848
-LDFLAGS  = ../src/libseqlib.a
-LIBS     = -lz -lm -lbz2 -llzma -lcurl -lhts -L../htslib
+LDFLAGS += ../src/libseqlib.a -L../htslib -lhts
+LIBS     = -lz -lm -lbz2 -llzma -lcurl -lpthread
 INC      = -I. -I.. -I../htslib
 
 # we need to find libhts at runtime
+OS      := $(shell uname -s)
 ifeq ($(OS),Linux)
-	LDFLAGS  += -Wl,-rpath,../htslib
-	CXXFLAGS += -s
+	LDFLAGS  += -s -Wl,-rpath,../htslib -lhts
 endif
 
+OBJS = $(patsubst %.cpp, %.o, $(wildcard *.cpp))
+
 # don't output test-main.bin
-OBJS = $(patsubst %.cpp, %.bin, $(filter-out test-main.cpp, $(wildcard *.cpp)))
-$(info "compiling tests $(OBJS)" )
+BINS = $(patsubst %.cpp, %.bin, $(filter-out test-main.cpp, $(wildcard *.cpp)))
+$(info "compiling tests $(BINS)" )
 
 .PHONY: all test clean
 
-all: $(OBJS)
+all: $(BINS)
 
-test: $(OBJS)
+test: $(BINS)
 
-test-main.o: test-main.cpp catch.hh
-	$(CXX) $(CXXFLAGS) $< -c -o $@
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ -c $< ${INC}
 
-%.bin: %.cpp test-main.o
-	${CXX} ${CXXFLAGS} $< test-main.o -o $@ $(INC) $(LIBS) $(LDFLAGS)
+%.bin: %.o test-main.o
+	${CXX} ${CXXFLAGS} -o $@ $< test-main.o $(LDFLAGS) $(LIBS)
 
 clean:
 	rm -f *.o *.bin

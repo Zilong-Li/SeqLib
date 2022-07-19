@@ -18,7 +18,7 @@ jobs:
 
     - name: install dependency
       run: |
-        brew install zlib automake
+        brew install automake
 
     - name: make
       run: |

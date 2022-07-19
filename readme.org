@@ -25,7 +25,7 @@ C_INCLUDE_PATH=$C_INCLUDE_PATH:$SEQ:$SEQ/htslib
 LDFLAGS="$LDFLAGS $SEQ/src/libseqlib.a -lhts -L$SEQ/htslib"
 #+end_src
 
-Since the newest htslib supports reading BAM with url links in default, remember to then link any projects made with SeqLib with the additional =-lcurl= and =-lcrypto= (no need for macOS) flags.
+Since the newest htslib supports reading BAM with url links in default, remember to then link any projects made with SeqLib with the additional =-lcurl= flags.
 
 However, you can disable support for reading BAM etc with HTTPS, FTP, S3, Google Cloud and so on by the following:
 
