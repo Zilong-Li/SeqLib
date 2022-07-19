@@ -1,8 +1,8 @@
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.71]) ## specificy version of autoconf
+AC_PREREQ([2.69]) ## specificy version of autoconf
 AC_INIT([SeqLib],[0.1.0],[zilong.dk@gmail.com])
 AM_INIT_AUTOMAKE(foreign)
-AC_CONFIG_SRCDIR([src/BamReader.cpp])
+dnl AC_CONFIG_SRCDIR([src/BamReader.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE([disable])
 ##m4_include([m4/m4_ax_openmp.m4])
@@ -24,11 +24,6 @@ AC_SEARCH_LIBS([clock_gettime], [rt], [AC_DEFINE([HAVE_CLOCK_GETTIME], [1], [clo
 
 # check for c++11
 #AX_CXX_COMPILE_STDCXX_11(,[optional])
-
-AC_ARG_ENABLE([libcurl],
-  [AS_HELP_STRING([--enable-libcurl],
-                  [enable libcurl-based support for http/https/etc URLs])],
-  [], [enable_libcurl=check])
 
 # Only fail on warnings when the --enable-development flag is passed into configure
 AC_ARG_ENABLE(development, AS_HELP_STRING([--enable-development],

@@ -153,7 +153,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
-	depcomp install-sh missing
+	install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -198,13 +198,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = aclocal-1.16
+ACLOCAL = ${SHELL} '/Users/zilong/Project/zll/SeqLib/missing' aclocal-1.16
 AMTAR = $${TAR-tar}
 AM_CXXFLAGS = -g  -std=c++11 -Wno-unknown-pragmas
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = autoconf
-AUTOHEADER = autoheader
-AUTOMAKE = automake-1.16
+AUTOCONF = ${SHELL} '/Users/zilong/Project/zll/SeqLib/missing' autoconf
+AUTOHEADER = ${SHELL} '/Users/zilong/Project/zll/SeqLib/missing' autoheader
+AUTOMAKE = ${SHELL} '/Users/zilong/Project/zll/SeqLib/missing' automake-1.16
 AWK = awk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -233,7 +233,7 @@ LIBOBJS =
 LIBS = -lbz2 -llzma -lz  -pthread
 LTLIBOBJS = 
 MAINT = #
-MAKEINFO = makeinfo
+MAKEINFO = ${SHELL} '/Users/zilong/Project/zll/SeqLib/missing' makeinfo
 MKDIR_P = /usr/local/opt/coreutils/bin/gmkdir -p
 OBJEXT = o
 PACKAGE = seqlib

@@ -31,3 +31,9 @@ benchmark
 config.status
 seqtools
 config.h
+config.h.in
+missing
+compile
+depcomp
+Makefile.in
+install-sh
