@@ -1,9 +1,16 @@
-CXX ?= g++
+# detect OS architecture and add flags
+OS      := $(shell uname -s)
+CXX     ?= g++
 CXXFLAGS = -std=c++11 -Wall -O2
 # https://github.com/samtools/htslib/issues/1176#issuecomment-722033848
 LDFLAGS  = ../src/libseqlib.a
 LIBS     = -lz -lm -lbz2 -llzma -lcurl -lhts -L../htslib
 INC      = -I. -I.. -I../htslib
+
+# we need to find libhts at runtime
+ifeq ($(OS),Linux)
+	LDFLAGS += -Wl,-rpath,../htslib
+endif
 
 # don't output test-main.bin
 OBJS = $(patsubst %.cpp, %.bin, $(filter-out test-main.cpp, $(wildcard *.cpp)))
