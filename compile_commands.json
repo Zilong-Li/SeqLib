@@ -1,0 +1,1226 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "kfunc.o",
+      "kfunc.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/kfunc.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/kfunc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "kstring.o",
+      "kstring.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/kstring.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/kstring.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "bcf_sr_sort.o",
+      "bcf_sr_sort.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/bcf_sr_sort.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/bcf_sr_sort.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "bgzf.o",
+      "bgzf.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/bgzf.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/bgzf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "errmod.o",
+      "errmod.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/errmod.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/errmod.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "faidx.o",
+      "faidx.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/faidx.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/faidx.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "header.o",
+      "header.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/header.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/header.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "hfile.o",
+      "hfile.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/hfile.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/hfile.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "hts.o",
+      "hts.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/hts.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/hts.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "hts_expr.o",
+      "hts_expr.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/hts_expr.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/hts_expr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "hts_os.o",
+      "hts_os.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/hts_os.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/hts_os.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "md5.o",
+      "md5.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/md5.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/md5.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "multipart.o",
+      "multipart.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/multipart.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/multipart.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "probaln.o",
+      "probaln.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/probaln.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/probaln.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "realn.o",
+      "realn.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/realn.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/realn.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "regidx.o",
+      "regidx.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/regidx.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/regidx.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "region.o",
+      "region.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/region.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/region.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "sam.o",
+      "sam.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/sam.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/sam.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "synced_bcf_reader.o",
+      "synced_bcf_reader.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/synced_bcf_reader.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/synced_bcf_reader.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "vcf_sweep.o",
+      "vcf_sweep.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/vcf_sweep.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/vcf_sweep.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "tbx.o",
+      "tbx.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/tbx.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/tbx.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "textutils.o",
+      "textutils.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/textutils.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/textutils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "thread_pool.o",
+      "thread_pool.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/thread_pool.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/thread_pool.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "vcf.o",
+      "vcf.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/vcf.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/vcf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "vcfutils.o",
+      "vcfutils.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/vcfutils.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/vcfutils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_codecs.o",
+      "cram/cram_codecs.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_codecs.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_codecs.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_decode.o",
+      "cram/cram_decode.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_decode.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_decode.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_encode.o",
+      "cram/cram_encode.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_encode.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_encode.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_external.o",
+      "cram/cram_external.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_external.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_external.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_index.o",
+      "cram/cram_index.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_index.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_index.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_io.o",
+      "cram/cram_io.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_io.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_io.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/cram_stats.o",
+      "cram/cram_stats.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_stats.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/cram_stats.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/mFILE.o",
+      "cram/mFILE.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/mFILE.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/mFILE.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/open_trace_file.o",
+      "cram/open_trace_file.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/open_trace_file.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/open_trace_file.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/pooled_alloc.o",
+      "cram/pooled_alloc.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/pooled_alloc.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/pooled_alloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "cram/string_alloc.o",
+      "cram/string_alloc.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/cram/string_alloc.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/cram/string_alloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/arith_dynamic.o",
+      "htscodecs/htscodecs/arith_dynamic.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/arith_dynamic.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/arith_dynamic.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/fqzcomp_qual.o",
+      "htscodecs/htscodecs/fqzcomp_qual.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/fqzcomp_qual.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/fqzcomp_qual.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/htscodecs.o",
+      "htscodecs/htscodecs/htscodecs.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/htscodecs.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/htscodecs.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/pack.o",
+      "htscodecs/htscodecs/pack.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/pack.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/pack.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/rANS_static4x16pr.o",
+      "htscodecs/htscodecs/rANS_static4x16pr.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rANS_static4x16pr.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rANS_static4x16pr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/rANS_static.o",
+      "htscodecs/htscodecs/rANS_static.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rANS_static.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rANS_static.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/rle.o",
+      "htscodecs/htscodecs/rle.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rle.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/rle.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htscodecs/htscodecs/tokenise_name3.o",
+      "htscodecs/htscodecs/tokenise_name3.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/tokenise_name3.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htscodecs/htscodecs/tokenise_name3.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "hfile_libcurl.o",
+      "hfile_libcurl.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/hfile_libcurl.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/hfile_libcurl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "bgzip.o",
+      "bgzip.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/bgzip.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/bgzip.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "htsfile.o",
+      "htsfile.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/htsfile.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/htsfile.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "tabix.o",
+      "tabix.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/tabix.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/tabix.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/hts_endian.o",
+      "test/hts_endian.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/hts_endian.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/hts_endian.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/fieldarith.o",
+      "test/fieldarith.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/fieldarith.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/fieldarith.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/hfile.o",
+      "test/hfile.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/hfile.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/hfile.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/pileup.o",
+      "test/pileup.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/pileup.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/pileup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/pileup_mod.o",
+      "test/pileup_mod.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/pileup_mod.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/pileup_mod.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/plugins-dlhts.o",
+      "test/plugins-dlhts.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/plugins-dlhts.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/plugins-dlhts.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/sam.o",
+      "test/sam.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/sam.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/sam.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_bgzf.o",
+      "test/test_bgzf.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_bgzf.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_bgzf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_expr.o",
+      "test/test_expr.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_expr.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_expr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_kfunc.o",
+      "test/test_kfunc.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_kfunc.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_kfunc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_kstring.o",
+      "test/test_kstring.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_kstring.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_kstring.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_mod.o",
+      "test/test_mod.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_mod.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_mod.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_realn.o",
+      "test/test_realn.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_realn.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_realn.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-regidx.o",
+      "test/test-regidx.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-regidx.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-regidx.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_str2int.o",
+      "test/test_str2int.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_str2int.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_str2int.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_view.o",
+      "test/test_view.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_view.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_view.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_index.o",
+      "test/test_index.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_index.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_index.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-vcf-api.o",
+      "test/test-vcf-api.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-vcf-api.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-vcf-api.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-vcf-sweep.o",
+      "test/test-vcf-sweep.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-vcf-sweep.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-vcf-sweep.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-bcf-sr.o",
+      "test/test-bcf-sr.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-bcf-sr.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-bcf-sr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/fuzz/hts_open_fuzzer.o",
+      "test/fuzz/hts_open_fuzzer.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/fuzz/hts_open_fuzzer.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/fuzz/hts_open_fuzzer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-bcf-translate.o",
+      "test/test-bcf-translate.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-bcf-translate.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-bcf-translate.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test-parse-reg.o",
+      "test/test-parse-reg.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-parse-reg.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test-parse-reg.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-g",
+      "-Wall",
+      "-O2",
+      "-fvisibility=hidden",
+      "-I.",
+      "-c",
+      "-o",
+      "test/test_introspection.o",
+      "test/test_introspection.c"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/htslib",
+    "file": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_introspection.c",
+    "output": "/Users/zilong/Project/zll/SeqLib/htslib/test/test_introspection.o"
+  }
+]

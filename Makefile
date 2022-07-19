@@ -69,10 +69,10 @@ am__make_running_with_option = \
   test $$has_opt = yes
 am__make_dryrun = (target_option=n; $(am__make_running_with_option))
 am__make_keepgoing = (target_option=k; $(am__make_running_with_option))
-pkgdatadir = $(datadir)/seqkit
-pkgincludedir = $(includedir)/seqkit
-pkglibdir = $(libdir)/seqkit
-pkglibexecdir = $(libexecdir)/seqkit
+pkgdatadir = $(datadir)/seqlib
+pkgincludedir = $(includedir)/seqlib
+pkglibdir = $(libdir)/seqlib
+pkglibexecdir = $(libexecdir)/seqlib
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -152,8 +152,8 @@ am__define_uniq_tagged_files = \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	README.md compile depcomp install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
+	depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -236,19 +236,19 @@ MAINT = #
 MAKEINFO = makeinfo
 MKDIR_P = /usr/local/opt/coreutils/bin/gmkdir -p
 OBJEXT = o
-PACKAGE = seqkit
-PACKAGE_BUGREPORT = jeremiah.wala@gmail.com
-PACKAGE_NAME = seqkit
-PACKAGE_STRING = seqkit 1.0
-PACKAGE_TARNAME = seqkit
+PACKAGE = seqlib
+PACKAGE_BUGREPORT = zilong.dk@gmail.com
+PACKAGE_NAME = SeqLib
+PACKAGE_STRING = SeqLib 0.1.0
+PACKAGE_TARNAME = seqlib
 PACKAGE_URL = 
-PACKAGE_VERSION = 1.0
+PACKAGE_VERSION = 0.1.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 1.0
+VERSION = 0.1.0
 abs_builddir = /Users/zilong/Project/zll/SeqLib
 abs_srcdir = /Users/zilong/Project/zll/SeqLib
 abs_top_builddir = /Users/zilong/Project/zll/SeqLib
@@ -684,8 +684,6 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-recursive
-
 clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-recursive
@@ -776,6 +774,10 @@ uninstall-am:
 
 install:  
 	mkdir -p lib && cp src/libseqlib.a htslib/libhts.a lib
+
+clean:
+	rm -f lib/*.a
+	(cd htslib && make clean)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

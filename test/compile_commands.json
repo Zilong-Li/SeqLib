@@ -1,0 +1,23 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-O2",
+      "test-main.o",
+      "-I.",
+      "-I..",
+      "-I../htslib",
+      "../lib/libseqlib.a",
+      "../lib/libhts.a",
+      "-o",
+      "bam-reader.bin",
+      "bam-reader.cpp"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/test",
+    "file": "/Users/zilong/Project/zll/SeqLib/test/bam-reader.cpp",
+    "output": "/Users/zilong/Project/zll/SeqLib/test/bam-reader.bin"
+  }
+]
