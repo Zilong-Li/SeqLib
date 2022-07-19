@@ -1,0 +1,10 @@
+#+TITLE: Changelog
+
+- v0.1.1
+  - upgrade to htslib v1.15.1
+  - add github workflows
+  - add cache2 tests
+
+- v0.1.0
+  - remove bwa, fermi-lite dependencies
+  - the same version as https://github.com/walaj/SeqLib/tree/35c9ec5edb53c4afdbc60c09a5f748571c294c13

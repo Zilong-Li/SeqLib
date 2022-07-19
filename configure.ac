@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.69]) ## specificy version of autoconf
-AC_INIT([SeqLib],[0.1.0],[zilong.dk@gmail.com])
+AC_INIT([SeqLib],[0.1.1],[zilong.dk@gmail.com])
 AM_INIT_AUTOMAKE(foreign)
 dnl AC_CONFIG_SRCDIR([src/BamReader.cpp])
 AC_CONFIG_HEADERS([config.h])

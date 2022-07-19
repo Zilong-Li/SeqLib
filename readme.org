@@ -39,5 +39,6 @@ autoreconf -i # build the configure script and install files it uses
 make
 #+end_src
 
-
 * API
+
+see some examples in [[https://github.com/Zilong-Li/SeqLib/tree/master/test][test]] folder
