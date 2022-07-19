@@ -2,6 +2,21 @@
   {
     "arguments": [
       "/usr/bin/c++",
+      "-std=c++11",
+      "-Wall",
+      "-O2",
+      "-c",
+      "-o",
+      "test-main.o",
+      "test-main.cpp"
+    ],
+    "directory": "/Users/zilong/Project/zll/SeqLib/test",
+    "file": "/Users/zilong/Project/zll/SeqLib/test/test-main.cpp",
+    "output": "/Users/zilong/Project/zll/SeqLib/test/test-main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
       "-c",
       "-std=c++11",
       "-Wall",
@@ -10,8 +25,7 @@
       "-I.",
       "-I..",
       "-I../htslib",
-      "../lib/libseqlib.a",
-      "../lib/libhts.a",
+      "../src/libseqlib.a",
       "-o",
       "bam-reader.bin",
       "bam-reader.cpp"

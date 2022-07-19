@@ -776,7 +776,7 @@ install:
 	mkdir -p lib && cp src/libseqlib.a htslib/libhts.a lib
 
 clean:
-	rm -f lib/*.a
+	rm -f lib/*.a src/*.o src/*.a
 	(cd htslib && make clean)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

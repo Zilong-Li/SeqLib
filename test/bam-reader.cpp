@@ -37,3 +37,10 @@ TEST_CASE( "Plot a collection of gapped alignments", "[bam-reader]" ) {
     REQUIRE(n == 5);
     cout << plotrecs << endl;
 }
+
+TEST_CASE( "BAM header is parsed by libcurl", "[bam-reader]" ) {
+    BamReader br;
+    br.Open("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/data/HG00138/alignment/HG00138.unmapped.ILLUMINA.bwa.GBR.low_coverage.20101123.bam");
+    BamHeader h = br.Header();
+    REQUIRE(h.AsString().find("@PG\tID:bwa\tVN:0.5.5"));
+}

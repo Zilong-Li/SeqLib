@@ -4,12 +4,33 @@ This is a fork of https://github.com/walaj/SeqLib  supporting htslib only for de
 
 * Installation
 
+For quick and simple installation, just do
+
 #+begin_src shell
 git clone --recursive https://github.com/Zilong-Li/SeqLib.git
 cd SeqLib
 ./configure
 make
-make install
 #+end_src
+
+Now you can integrate SeqLib into your project as the following:
+
+#+begin_src shell
+SEQ=<path_to_seqlib_git_repos>
+C_INCLUDE_PATH=$C_INCLUDE_PATH:$SEQ:$SEQ/htslib
+LDFLAGS="$LDFLAGS $SEQ/src/libseqlib.a -lhts -L$SEQ/htslib"
+#+end_src
+
+
+To add support for reading BAM etc with HTTPS, FTP, S3, Google Cloud and so on, you must compile and link with =libcurl=;
+
+#+begin_src shell
+git clone --recursive https://github.com/Zilong-Li/SeqLib.git
+cd SeqLib
+./configure --enable-libcurl
+make
+#+end_src
+
+Remember then to then link any projects made with SeqLib with the additional =-lcurl= and =-lcrypto= (no need for macOS) flags.
 
 * API

@@ -755,6 +755,7 @@ enable_option_checking
 enable_silent_rules
 enable_maintainer_mode
 enable_dependency_tracking
+enable_libcurl
 enable_development
 '
       ac_precious_vars='build_alias
@@ -1400,6 +1401,7 @@ Optional Features:
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
+  --enable-libcurl        enable libcurl-based support for http/https/etc URLs
   --enable-development    Turn on development options, like failing
                           compilation on warnings
 
@@ -5438,6 +5440,15 @@ fi
 
 # check for c++11
 #AX_CXX_COMPILE_STDCXX_11(,[optional])
+
+# Check whether --enable-libcurl was given.
+if test ${enable_libcurl+y}
+then :
+  enableval=$enable_libcurl;
+else $as_nop
+  enable_libcurl=check
+fi
+
 
 # Only fail on warnings when the --enable-development flag is passed into configure
 # Check whether --enable-development was given.

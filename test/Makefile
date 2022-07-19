@@ -1,7 +1,8 @@
 CXX ?= g++
 CXXFLAGS = -std=c++11 -Wall -O2
-LDFLAGS  = ../lib/libseqlib.a ../lib/libhts.a
-LIBS     = -lz -lm -lbz2 -llzma
+# https://github.com/samtools/htslib/issues/1176#issuecomment-722033848
+LDFLAGS  = ../src/libseqlib.a
+LIBS     = -lz -lm -lbz2 -llzma -lcurl -lhts -L../htslib
 INC      = -I. -I.. -I../htslib
 
 # don't output test-main.bin

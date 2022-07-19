@@ -25,6 +25,11 @@ AC_SEARCH_LIBS([clock_gettime], [rt], [AC_DEFINE([HAVE_CLOCK_GETTIME], [1], [clo
 # check for c++11
 #AX_CXX_COMPILE_STDCXX_11(,[optional])
 
+AC_ARG_ENABLE([libcurl],
+  [AS_HELP_STRING([--enable-libcurl],
+                  [enable libcurl-based support for http/https/etc URLs])],
+  [], [enable_libcurl=check])
+
 # Only fail on warnings when the --enable-development flag is passed into configure
 AC_ARG_ENABLE(development, AS_HELP_STRING([--enable-development],
 	[Turn on development options, like failing compilation on warnings]))
