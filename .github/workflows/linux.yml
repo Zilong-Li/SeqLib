@@ -1,0 +1,34 @@
+
+name: Linux
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install dependency
+      run: |
+        sudo apt update
+        sudo apt-get update
+        sudo apt-get -y install zlib1g zlib1g-dev
+
+    - name: make
+      run: |
+        autoreconf -i
+        ./configure
+        make
+
+    - name: test
+      run: |
+        cd test
+        make
+        find . -name *.bin -exec '{}' --success ';'

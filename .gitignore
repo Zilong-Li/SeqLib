@@ -8,8 +8,9 @@ docs
 *.gcda
 *.gcno
 *.gcov
-.*
 autom4te.cache
+.DS_Store
+.cache
 .Rhistory
 .in
 .deps*

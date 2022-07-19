@@ -1,0 +1,31 @@
+name: MacOS
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install dependency
+      run: |
+        brew install zlib
+
+    - name: make
+      run: |
+        autoreconf -i
+        ./configure
+        make
+
+    - name: test
+      run: |
+        cd test
+        make
+        find . -name *.bin -exec '{}' --success ';'

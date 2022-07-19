@@ -9,7 +9,8 @@ INC      = -I. -I.. -I../htslib
 
 # we need to find libhts at runtime
 ifeq ($(OS),Linux)
-	LDFLAGS += -Wl,-rpath,../htslib
+	LDFLAGS  += -Wl,-rpath,../htslib
+	CXXFLAGS += -s
 endif
 
 # don't output test-main.bin
