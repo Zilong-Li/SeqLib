@@ -1,5 +1,8 @@
 #+TITLE: A maintained SeqLib for interface to htslib only
 
+[[https://github.com/Zilong-Li/SeqLib/actions/workflows/linux.yml/badge.svg]]
+[[https://github.com/Zilong-Li/SeqLib/actions/workflows/mac.yml/badge.svg]]
+
 This is a fork of https://github.com/walaj/SeqLib  supporting htslib only for dealing with BAM/CRAM/VCF/BCF.
 
 * Installation
