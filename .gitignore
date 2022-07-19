@@ -37,3 +37,4 @@ compile
 depcomp
 Makefile.in
 install-sh
+compile_commands.json

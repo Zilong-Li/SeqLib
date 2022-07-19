@@ -31,6 +31,7 @@ git clone --recursive https://github.com/Zilong-Li/SeqLib.git
 cd SeqLib/htslib # go in htslib
 ./configure --disable-libcurl
 cd .. # back to seqlib
+autoreconf -i # build the configure script and install files it uses
 ./configure
 make
 #+end_src
