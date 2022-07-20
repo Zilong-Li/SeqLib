@@ -20,9 +20,9 @@ $(info "compiling tests $(BINS)" )
 
 .PHONY: all test clean
 
-all: $(BINS)
+all: $(BINS) $(OBJS)
 
-test: $(BINS)
+test: $(BINS) $(OBJS)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $< ${INC}
