@@ -3,103 +3,120 @@
 
 #include "SeqLib/BamRecord.h"
 
-namespace SeqLib {
-  
-  /** Object for creating ASCII alignment plots
-   */
-  class SeqPlot {
+namespace SeqLib
+{
 
-  public:
-    
-    /** Create an empty plotter object */
-  SeqPlot() : m_pad(5) {}
-
-    /** Plot aligned read by stacking them in an IGV-like view */
-    std::string PlotAlignmentRecords(const BamRecordVector& brv) const;
-
-    /** Set the view window 
-     * @param g Window to view reads in. Reads that 
-     * start or end outside of this window are not plotted
+    /** Object for creating ASCII alignment plots
      */
-    void SetView(const GenomicRegion& g) { m_view = g; }
+    class SeqPlot
+    {
 
-    /** Set the padding between reads (default is 5) */
-    void SetPadding(int p) { m_pad = p; }
+    public:
+        /** Create an empty plotter object */
+        SeqPlot() : m_pad(5)
+        {
+        }
 
-  private: 
+        /** Plot aligned read by stacking them in an IGV-like view */
+        std::string PlotAlignmentRecords(const BamRecordVector& brv) const;
 
-    // reads that align to the contig
-    BamRecordVector m_reads;
+        /** Set the view window
+         * @param g Window to view reads in. Reads that
+         * start or end outside of this window are not plotted
+         */
+        void SetView(const GenomicRegion& g)
+        {
+            m_view = g;
+        }
 
-    // view window
-    GenomicRegion m_view;
+        /** Set the padding between reads (default is 5) */
+        void SetPadding(int p)
+        {
+            m_pad = p;
+        }
 
-    // padding when placing reads
-    int m_pad;
+    private:
+        // reads that align to the contig
+        BamRecordVector m_reads;
 
-  };
+        // view window
+        GenomicRegion m_view;
 
-  /** A single plotted read */
-struct PlottedRead {
+        // padding when placing reads
+        int m_pad;
+    };
 
-  int pos;
-  std::string seq;
-  std::string info;
-  
-  PlottedRead(int p, const std::string& s, const std::string& i) : pos(p), seq(s), info(i) {}
+    /** A single plotted read */
+    struct PlottedRead
+    {
 
-  bool operator<(const PlottedRead& pr) const {
-    return (pos < pr.pos);
-  }
+        int pos;
+        std::string seq;
+        std::string info;
 
-};
+        PlottedRead(int p, const std::string& s, const std::string& i) : pos(p), seq(s), info(i)
+        {
+        }
 
-typedef std::vector<PlottedRead> PlottedReadVector;
+        bool operator<(const PlottedRead& pr) const
+        {
+            return (pos < pr.pos);
+        }
+    };
 
-/** A plotted line */
-struct PlottedReadLine {
+    typedef std::vector<PlottedRead> PlottedReadVector;
 
-PlottedReadLine() : available(0), contig_len(0), pad(5) {}
+    /** A plotted line */
+    struct PlottedReadLine
+    {
 
-  std::vector<PlottedRead*> read_vec;
-  int available;
-  int contig_len;
-  
-  int pad;
+        PlottedReadLine() : available(0), contig_len(0), pad(5)
+        {
+        }
 
-  void addRead(PlottedRead *r) {
-    read_vec.push_back(r);
-    available = r->pos + r->seq.length() + pad;
-  }
+        std::vector<PlottedRead*> read_vec;
+        int available;
+        int contig_len;
 
-  bool readFits(const PlottedRead &r) {
-    return (r.pos >= available);
-  }
+        int pad;
 
-  friend std::ostream& operator<<(std::ostream& out, const PlottedReadLine &r) {
-    int last_loc = 0;
-    for (std::vector<PlottedRead*>::const_iterator i = r.read_vec.begin(); i != r.read_vec.end(); ++i) {
-      //    for (auto& i : r.read_vec) {
-      assert((*i)->pos - last_loc >= 0);
-      out << std::string((*i)->pos - last_loc, ' ') << (*i)->seq;
-      last_loc = (*i)->pos + (*i)->seq.length();
-    }
-    int name_buff = r.contig_len - last_loc;
-    assert(name_buff < 1e6);
-    out << std::string(std::max(name_buff, 5), ' ');
-    for (std::vector<PlottedRead*>::const_iterator i = r.read_vec.begin(); i != r.read_vec.end(); ++i) {
-      //for (auto& i : r.read_vec) { // add the data
-      out << (*i)->info << ",";
-    }
-    return out;
-  }
+        void addRead(PlottedRead* r)
+        {
+            read_vec.push_back(r);
+            available = r->pos + r->seq.length() + pad;
+        }
 
-};
+        bool readFits(const PlottedRead& r)
+        {
+            return (r.pos >= available);
+        }
 
-typedef std::vector<PlottedReadLine> PlottedReadLineVector;
+        friend std::ostream& operator<<(std::ostream& out, const PlottedReadLine& r)
+        {
+            int last_loc = 0;
+            for (std::vector<PlottedRead*>::const_iterator i = r.read_vec.begin(); i != r.read_vec.end(); ++i)
+            {
+                //    for (auto& i : r.read_vec) {
+                assert((*i)->pos - last_loc >= 0);
+                out << std::string((*i)->pos - last_loc, ' ') << (*i)->seq;
+                last_loc = (*i)->pos + (*i)->seq.length();
+            }
+            int name_buff = r.contig_len - last_loc;
+            assert(name_buff < 1e6);
+            out << std::string(std::max(name_buff, 5), ' ');
+            for (std::vector<PlottedRead*>::const_iterator i = r.read_vec.begin(); i != r.read_vec.end(); ++i)
+            {
+                // for (auto& i : r.read_vec) { // add the data
+                out << (*i)->info << ",";
+            }
+            return out;
+        }
+    };
+
+    typedef std::vector<PlottedReadLine> PlottedReadLineVector;
 
 
-}
+} // namespace SeqLib
 
 
 

@@ -153,7 +153,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
-	install-sh missing
+	depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -239,16 +239,16 @@ OBJEXT = o
 PACKAGE = seqlib
 PACKAGE_BUGREPORT = zilong.dk@gmail.com
 PACKAGE_NAME = SeqLib
-PACKAGE_STRING = SeqLib 0.1.0
+PACKAGE_STRING = SeqLib 0.1.1
 PACKAGE_TARNAME = seqlib
 PACKAGE_URL = 
-PACKAGE_VERSION = 0.1.0
+PACKAGE_VERSION = 0.1.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1.0
+VERSION = 0.1.1
 abs_builddir = /Users/zilong/Project/zll/SeqLib
 abs_srcdir = /Users/zilong/Project/zll/SeqLib
 abs_top_builddir = /Users/zilong/Project/zll/SeqLib
