@@ -263,10 +263,6 @@ namespace SeqLib
      */
     class BamRecord
     {
-
-        friend class BLATWraper;
-        friend class BWAWrapper;
-
     public:
         /** Construct a BamRecord manually from a name, sequence, cigar and location
          * @param name Name of the read

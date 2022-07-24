@@ -1,0 +1,121 @@
+#include "SeqLib/BcfReader.h"
+
+
+namespace SeqLib
+{
+    BcfReader::BcfReader(const std::string& fname_) : fname(fname_)
+    {
+        fp = hts_open(fname.c_str(), "r");
+        hdr = bcf_hdr_read(fp);
+        nsamples = bcf_hdr_nsamples(hdr);
+    }
+
+    BcfReader::BcfReader(const std::string& fname_, const std::string& samples) : fname(fname_)
+    {
+        fp = hts_open(fname.c_str(), "r");
+        hdr = bcf_hdr_read(fp);
+        int ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+        if (ret > 0)
+        {
+            printf("the %i-th sample are not in the VCF.\n", ret);
+            exit(EXIT_FAILURE);
+        }
+        else if (ret == -1)
+        {
+            printf("error given, something wrong!\n");
+            exit(EXIT_FAILURE);
+        }
+        nsamples = bcf_hdr_nsamples(hdr);
+    }
+
+    BcfReader::BcfReader(const std::string& fname_, const std::string& samples, const std::string& region) : fname(fname_)
+    {
+        fp = hts_open(fname.c_str(), "r");
+        hdr = bcf_hdr_read(fp);
+        int ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+        if (ret > 0)
+        {
+            printf("the %i-th sample are not in the VCF.\n", ret);
+            exit(EXIT_FAILURE);
+        }
+        else if (ret == -1)
+        {
+            printf("error given, something wrong!\n");
+            exit(EXIT_FAILURE);
+        }
+        nsamples = bcf_hdr_nsamples(hdr);
+        SetRegion(region);
+    }
+
+    BcfReader::~BcfReader()
+    {
+        if (fp)
+            hts_close(fp);
+        if (hdr)
+            bcf_hdr_destroy(hdr);
+        if (itr)
+            hts_itr_destroy(itr);
+    }
+
+    // get next variant
+    bool BcfReader::GetNextVariant(BcfRecord& r)
+    {
+        r.Init(hdr, nsamples);
+        int ret;
+        if (itr != NULL)
+        {
+            if (isBcf)
+            {
+                ret = bcf_itr_next(fp, itr, r.line);
+                return (ret >= 0);
+            }
+            else
+            {
+                int slen = tbx_itr_next(fp, tidx, itr, &s);
+                if (slen > 0)
+                {
+                    ret = vcf_parse(&s, hdr, r.line); // ret > 0, error
+                }
+                return (ret <= 0) && (slen > 0);
+            }
+        }
+        else
+        {
+            ret = bcf_read(fp, hdr, r.line);
+            return (ret == 0);
+        }
+    }
+
+    // 1. check and load index first
+    // 2. query iterval region
+    void BcfReader::SetRegion(const std::string& region)
+    {
+        auto endWith = [](std::string const& s, std::string e)
+        {
+            if (s.length() >= e.length())
+            {
+                return (0 == s.compare(s.length() - e.length(), e.length(), e));
+            }
+            else
+            {
+                return false;
+            }
+        };
+
+        if (endWith(fname, "bcf") || endWith(fname, "bcf.gz"))
+        {
+            isBcf = true;
+            hidx = bcf_index_load(fname.c_str());
+            itr = bcf_itr_querys(hidx, hdr, region.c_str());
+        }
+        else
+        {
+            isBcf = false;
+            tidx = tbx_index_load(fname.c_str());
+            assert(tidx != NULL && "error loading tabix index!");
+            itr = tbx_itr_querys(tidx, region.c_str());
+            assert(itr != NULL && "no interval region found.failed!");
+        }
+    }
+
+} // namespace SeqLib

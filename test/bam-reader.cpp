@@ -5,7 +5,6 @@
 #define INBAM "../htslib/test/range.bam"
 
 using namespace SeqLib;
-
 using namespace std;
 
 TEST_CASE( "BAM header is parsed", "[bam-reader]" ) {
