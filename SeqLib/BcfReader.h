@@ -41,7 +41,7 @@ namespace SeqLib
 
         int nsamples;
         std::string fname;
-        bool isBcf;                 // if the input file is bcf or vcf;
+        bool isBcf; // if the input file is bcf or vcf;
     private:
         htsFile* fp = NULL;         // hts file
         bcf_hdr_t* hdr = NULL;      // bcf header

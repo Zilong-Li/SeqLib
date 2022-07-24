@@ -11,7 +11,7 @@ namespace SeqLib
     }
 
     // init some necessary members
-    void BcfRecord::Init(bcf_hdr_t* hdr_, int nsamples_)
+    void BcfRecord::Init(const bcf_hdr_t* hdr_, int nsamples_)
     {
         hdr = hdr_;
         nsamples = nsamples_;
