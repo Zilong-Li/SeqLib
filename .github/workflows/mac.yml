@@ -30,4 +30,4 @@ jobs:
       run: |
         cd test
         make
-        find . -name *.bin -exec '{}' --success ';'
+        find . -name "*.bin" -exec '{}' --success ';'
