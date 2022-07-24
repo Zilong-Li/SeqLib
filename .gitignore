@@ -40,3 +40,5 @@ Makefile.in
 install-sh
 compile_commands.json
 configure
+/Makefile
+/src/Makefile
