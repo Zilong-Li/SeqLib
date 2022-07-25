@@ -1,9 +1,9 @@
 #ifndef BCFRECORD_H_
 #define BCFRECORD_H_
 
-#include <string>
 #include <type_traits>
-#include <vector>
+
+#include "SeqLib/SeqLibUtils.h"
 
 extern "C"
 {
