@@ -16,22 +16,84 @@ namespace SeqLib
     class BcfHeader
     {
         friend class BcfReader;
+        friend class BcfWriter;
 
     public:
-        BcfHeader();
-        ~BcfHeader();
+        BcfHeader()
+        {
+            hdr = NULL;
+        }
+
+        ~BcfHeader()
+        {
+            bcf_hdr_destroy(hdr);
+        }
+
+        // todo : check if the value is valid for vcf specification
+        inline void AddInfo(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
+        {
+            AddLine("##INFO=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+        }
+
+        inline void AddFormat(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
+        {
+            AddLine("##FORMAT=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+        }
+
+        inline void AddFilter(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
+        {
+            AddLine("##FILTER=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+        }
+
+        inline void AddContig(const std::string& id)
+        {
+            AddLine("##contig=<ID=" + id + ">");
+        }
+        inline void AddLine(const std::string& line)
+        {
+            ret = bcf_hdr_append(hdr, line.c_str());
+            if (ret != 0)
+                throw std::runtime_error("could not add " + line + " to header\n");
+            ret = bcf_hdr_sync(hdr);
+            if (ret != 0)
+                throw std::runtime_error("could not add " + line + " to header\n");
+        }
+
+        void SetSamples(const std::string& samples)
+        {
+
+            ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+            if (ret > 0)
+            {
+                throw std::runtime_error("the " + std::to_string(ret) + "-th sample are not in the VCF.\n");
+            }
+            else if (ret == -1)
+            {
+                throw std::runtime_error("couldn't set samples. something wrong.\n");
+            }
+        }
+        inline int SetVersion(const std::string& version)
+        {
+            return bcf_hdr_set_version(hdr, version.c_str());
+        }
 
     private:
-        bcf_hdr_t* hdr = NULL; // bcf header
+        bcf_hdr_t* hdr; // bcf header
+        int ret = 0;
     };
 
     class BcfRecord
     {
         friend class BcfReader;
+        friend class BcfWriter;
 
     public:
-        BcfRecord();
-        ~BcfRecord();
+        BcfRecord()
+        {
+        }
+        ~BcfRecord()
+        {
+        }
 
         inline void Init(const bcf_hdr_t* hdr_, int nsamples_)
         {

@@ -14,17 +14,7 @@ namespace SeqLib
     {
         fp = hts_open(fname.c_str(), "r");
         header->hdr = bcf_hdr_read(fp);
-        int ret = bcf_hdr_set_samples(header->hdr, samples.c_str(), 0);
-        if (ret > 0)
-        {
-            printf("the %i-th sample are not in the VCF.\n", ret);
-            exit(EXIT_FAILURE);
-        }
-        else if (ret == -1)
-        {
-            printf("error given, something wrong!\n");
-            exit(EXIT_FAILURE);
-        }
+        header->SetSamples(samples);
         nsamples = bcf_hdr_nsamples(header->hdr);
     }
 
@@ -32,17 +22,7 @@ namespace SeqLib
     {
         fp = hts_open(fname.c_str(), "r");
         header->hdr = bcf_hdr_read(fp);
-        int ret = bcf_hdr_set_samples(header->hdr, samples.c_str(), 0);
-        if (ret > 0)
-        {
-            printf("the %i-th sample are not in the VCF.\n", ret);
-            exit(EXIT_FAILURE);
-        }
-        else if (ret == -1)
-        {
-            printf("error given, something wrong!\n");
-            exit(EXIT_FAILURE);
-        }
+        header->SetSamples(samples);
         nsamples = bcf_hdr_nsamples(header->hdr);
         SetRegion(region);
     }

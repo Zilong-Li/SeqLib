@@ -45,13 +45,13 @@ namespace SeqLib
         int nsamples;
         std::string fname;
         bool isBcf; // if the input file is bcf or vcf;
+        std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
     private:
         htsFile* fp = NULL;         // hts file
         hts_idx_t* hidx = NULL;     // hts index file
         tbx_t* tidx = NULL;         // .tbi .csi index file for vcf files
         hts_itr_t* itr = NULL;      // hts records iterator
         kstring_t s = {0, 0, NULL}; // kstring
-        std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
     };
 
 } // namespace SeqLib
