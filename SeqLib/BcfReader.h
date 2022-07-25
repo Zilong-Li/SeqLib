@@ -37,6 +37,9 @@ namespace SeqLib
 
         void SetRegion(const std::string& region);
 
+        // reset current region. seek to the first record.
+        void Reset();
+
         bool GetNextVariant(BcfRecord& r);
 
         int nsamples;
@@ -44,11 +47,11 @@ namespace SeqLib
         bool isBcf; // if the input file is bcf or vcf;
     private:
         htsFile* fp = NULL;         // hts file
-        bcf_hdr_t* hdr = NULL;      // bcf header
         hts_idx_t* hidx = NULL;     // hts index file
         tbx_t* tidx = NULL;         // .tbi .csi index file for vcf files
         hts_itr_t* itr = NULL;      // hts records iterator
         kstring_t s = {0, 0, NULL}; // kstring
+        std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
     };
 
 } // namespace SeqLib

@@ -13,6 +13,17 @@ extern "C"
 
 namespace SeqLib
 {
+    class BcfHeader
+    {
+        friend class BcfReader;
+
+    public:
+        BcfHeader();
+        ~BcfHeader();
+
+    private:
+        bcf_hdr_t* hdr = NULL; // bcf header
+    };
 
     class BcfRecord
     {
@@ -22,7 +33,11 @@ namespace SeqLib
         BcfRecord();
         ~BcfRecord();
 
-        void Init(const bcf_hdr_t* hdr_, int nsamples_);
+        inline void Init(const bcf_hdr_t* hdr_, int nsamples_)
+        {
+            hdr = hdr_;
+            nsamples = nsamples_;
+        }
 
         template <class T>
         typename std::enable_if<
@@ -51,7 +66,7 @@ namespace SeqLib
         // return a array for the requested field
         template <typename T>
         typename std::enable_if<
-            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int32_t>>::value || std::is_same<T, std::vector<float>>::value, bool>::type
+            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, bool>::type
         GetFormat(T& v, const std::string& tag)
         {
             fmt = bcf_get_fmt(hdr, line, tag.c_str());
@@ -71,26 +86,20 @@ namespace SeqLib
             if (ret >= 0)
             {
                 v.resize(ret);
-                _GetFormat(v);
+                int i, j, k = 0;
+                for (i = 0; i < nsamples; i++)
+                {
+                    for (j = 0; j < fmt->n; j++)
+                    {
+                        // https://stackoverflow.com/questions/16687172/cast-a-value-using-decltype-is-it-possible
+                        v[k++] = static_cast<typename T::value_type*>(buf)[j + i * fmt->n];
+                    }
+                }
                 return true;
             }
             else
             {
                 return false;
-            }
-        }
-
-        template <typename T>
-        void _GetFormat(T& v)
-        {
-            int i, j, k = 0;
-            for (i = 0; i < nsamples; i++)
-            {
-                for (j = 0; j < fmt->n; j++)
-                {
-                    // https://stackoverflow.com/questions/16687172/cast-a-value-using-decltype-is-it-possible
-                    v[k++] = static_cast<typename T::value_type*>(buf)[j + i * fmt->n];
-                }
             }
         }
 

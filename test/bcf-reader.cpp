@@ -10,7 +10,7 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
     // BcfReader br("../htslib/test/index.vcf");
     BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
     BcfRecord v;
-    vector<int32_t> ad;
+    vector<int> ad;
     vector<char> gatk;
     int n = 0;
     while (br.GetNextVariant(v))

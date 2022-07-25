@@ -2,6 +2,14 @@
 
 namespace SeqLib
 {
+    BcfHeader::BcfHeader()
+    {
+    }
+    BcfHeader::~BcfHeader()
+    {
+        if (hdr)
+            bcf_hdr_destroy(hdr);
+    }
     BcfRecord::BcfRecord()
     {
     }
@@ -10,10 +18,4 @@ namespace SeqLib
     {
     }
 
-    // init some necessary members
-    void BcfRecord::Init(const bcf_hdr_t* hdr_, int nsamples_)
-    {
-        hdr = hdr_;
-        nsamples = nsamples_;
-    }
 } // namespace SeqLib

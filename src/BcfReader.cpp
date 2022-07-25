@@ -6,15 +6,15 @@ namespace SeqLib
     BcfReader::BcfReader(const std::string& fname_) : fname(fname_)
     {
         fp = hts_open(fname.c_str(), "r");
-        hdr = bcf_hdr_read(fp);
-        nsamples = bcf_hdr_nsamples(hdr);
+        header->hdr = bcf_hdr_read(fp);
+        nsamples = bcf_hdr_nsamples(header->hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples) : fname(fname_)
     {
         fp = hts_open(fname.c_str(), "r");
-        hdr = bcf_hdr_read(fp);
-        int ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+        header->hdr = bcf_hdr_read(fp);
+        int ret = bcf_hdr_set_samples(header->hdr, samples.c_str(), 0);
         if (ret > 0)
         {
             printf("the %i-th sample are not in the VCF.\n", ret);
@@ -25,14 +25,14 @@ namespace SeqLib
             printf("error given, something wrong!\n");
             exit(EXIT_FAILURE);
         }
-        nsamples = bcf_hdr_nsamples(hdr);
+        nsamples = bcf_hdr_nsamples(header->hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples, const std::string& region) : fname(fname_)
     {
         fp = hts_open(fname.c_str(), "r");
-        hdr = bcf_hdr_read(fp);
-        int ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+        header->hdr = bcf_hdr_read(fp);
+        int ret = bcf_hdr_set_samples(header->hdr, samples.c_str(), 0);
         if (ret > 0)
         {
             printf("the %i-th sample are not in the VCF.\n", ret);
@@ -43,7 +43,7 @@ namespace SeqLib
             printf("error given, something wrong!\n");
             exit(EXIT_FAILURE);
         }
-        nsamples = bcf_hdr_nsamples(hdr);
+        nsamples = bcf_hdr_nsamples(header->hdr);
         SetRegion(region);
     }
 
@@ -51,8 +51,6 @@ namespace SeqLib
     {
         if (fp)
             hts_close(fp);
-        if (hdr)
-            bcf_hdr_destroy(hdr);
         if (itr)
             hts_itr_destroy(itr);
     }
@@ -60,7 +58,7 @@ namespace SeqLib
     // get next variant
     bool BcfReader::GetNextVariant(BcfRecord& r)
     {
-        r.Init(hdr, nsamples);
+        r.Init(header->hdr, nsamples);
         int ret;
         if (itr != NULL)
         {
@@ -74,14 +72,14 @@ namespace SeqLib
                 int slen = tbx_itr_next(fp, tidx, itr, &s);
                 if (slen > 0)
                 {
-                    ret = vcf_parse(&s, hdr, r.line); // ret > 0, error
+                    ret = vcf_parse(&s, header->hdr, r.line); // ret > 0, error
                 }
                 return (ret <= 0) && (slen > 0);
             }
         }
         else
         {
-            ret = bcf_read(fp, hdr, r.line);
+            ret = bcf_read(fp, header->hdr, r.line);
             return (ret == 0);
         }
     }
@@ -106,7 +104,7 @@ namespace SeqLib
         {
             isBcf = true;
             hidx = bcf_index_load(fname.c_str());
-            itr = bcf_itr_querys(hidx, hdr, region.c_str());
+            itr = bcf_itr_querys(hidx, header->hdr, region.c_str());
         }
         else
         {
