@@ -32,23 +32,24 @@ namespace SeqLib
         // todo : check if the value is valid for vcf specification
         inline void AddInfo(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
         {
-            AddLine("##INFO=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+            AddLine("##INFO=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=\"" + description + "\">");
         }
 
         inline void AddFormat(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
         {
-            AddLine("##FORMAT=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+            AddLine("##FORMAT=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=\"" + description + "\">");
         }
 
         inline void AddFilter(const std::string& id, const std::string& number, const std::string& type, const std::string& description)
         {
-            AddLine("##FILTER=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=" + description + ">");
+            AddLine("##FILTER=<ID=" + id + ",Number=" + number + ",Type=" + type + ",Description=\"" + description + "\">");
         }
 
         inline void AddContig(const std::string& id)
         {
             AddLine("##contig=<ID=" + id + ">");
         }
+
         inline void AddLine(const std::string& line)
         {
             ret = bcf_hdr_append(hdr, line.c_str());
@@ -72,13 +73,20 @@ namespace SeqLib
                 throw std::runtime_error("couldn't set samples. something wrong.\n");
             }
         }
+
+        inline void AddSample(const std::string& sample)
+        {
+            bcf_hdr_add_sample(hdr, sample.c_str());
+        }
+
         inline int SetVersion(const std::string& version)
         {
             return bcf_hdr_set_version(hdr, version.c_str());
         }
 
     private:
-        bcf_hdr_t* hdr; // bcf header
+        bcf_hdr_t* hdr;          // bcf header
+        bcf_hrec_t* hrec = NULL; // populate header
         int ret = 0;
     };
 
@@ -95,7 +103,7 @@ namespace SeqLib
         {
         }
 
-        inline void Init(const bcf_hdr_t* hdr_, int nsamples_)
+        inline void Init(bcf_hdr_t* hdr_, int nsamples_)
         {
             hdr = hdr_;
             nsamples = nsamples_;
@@ -172,7 +180,7 @@ namespace SeqLib
 
     private:
         bcf1_t* line = bcf_init(); // current bcf record
-        const bcf_hdr_t* hdr;
+        bcf_hdr_t* hdr = NULL;
         bcf_fmt_t* fmt = NULL;
         int32_t* gts = NULL;
         void* buf = NULL;

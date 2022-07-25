@@ -25,41 +25,30 @@ namespace SeqLib
               [rw]   .. uncompressed VCF
         */
         BcfWriter(const std::string& fname_, const std::string& mode);
+
         ~BcfWriter();
+
         void InitalHeader(std::string version = "VCF4.3");
+
         bool WriteRecord(BcfRecord& r);
+
         void WriteLine(const std::string& vcfline);
 
-        inline bool WriteHeader()
-        {
-            ret = bcf_hdr_write(fp, header->hdr);
-            if (ret == 0)
-                return true;
-            else
-                return false;
-        }
+        bool WriteHeader();
 
         // use copy assignment of shared_ptr
-        inline bool WriteHeader(const std::shared_ptr<BcfHeader>& h)
-        {
-            header = h;
-            // printf("address of first header = %p\n", &h);
-            // printf("address of second header = %p\n", &header);
-            ret = bcf_hdr_write(fp, header->hdr);
-            if (ret == 0)
-                return true;
-            else
-                return false;
-        }
+        bool WriteHeader(const std::shared_ptr<BcfHeader>& h);
 
         std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
 
     private:
-        htsFile* fp = NULL;                                                // hts file
+        htsFile* fp = NULL;   // hts file
+        bcf_hdr_t* hdr_d;       // a dup header by bcf_hdr_dup(header->hdr)
         int ret;
         bcf1_t *b = bcf_init();
         kstring_t s = {0, 0, NULL}; // kstring
         std::string fname;
+        bool isHeaderWritten = false;
     };
 } // namespace SeqLib
 
