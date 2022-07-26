@@ -15,6 +15,7 @@ namespace SeqLib
 {
     class BcfHeader
     {
+        friend class BcfRecord;
         friend class BcfReader;
         friend class BcfWriter;
 
@@ -146,6 +147,10 @@ namespace SeqLib
             nsamples = nsamples_;
         }
 
+        void AsString()
+        {
+        }
+
         template <class T>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
@@ -241,6 +246,31 @@ namespace SeqLib
                 throw std::runtime_error("couldn't set format correctly.\n");
         }
 
+        void AddLineFromString(const std::shared_ptr<BcfHeader>& header, const std::string& vcfline)
+        {
+            std::vector<char> str(vcfline.begin(), vcfline.end());
+            str.push_back('\0'); // don't forget string has no \0;
+            s.s = &str[0];
+            s.l = vcfline.length();
+            s.m = vcfline.length();
+            ret = vcf_parse(&s, header->hdr, line);
+            if (ret > 0)
+                throw std::runtime_error("error parsing: " + vcfline + "\n");
+            if (line->errcode == BCF_ERR_CTG_UNDEF)
+            {
+                std::string contig(bcf_hdr_id2name(header->hdr, line->rid));
+                hdr_d = bcf_hdr_dup(header->hdr);
+                header->hrec = bcf_hdr_id2hrec(hdr_d, BCF_DT_CTG, 0, line->rid);
+                if (header->hrec == NULL)
+                    throw std::runtime_error("contig" + contig + " unknow and not found in the header.\n");
+                ret = bcf_hdr_add_hrec(header->hdr, header->hrec);
+                printf("bcf_hdr_add_hrec %i \n", ret);
+                if (ret < 0)
+                    throw std::runtime_error("error adding contig " + contig + " to header.\n");
+                ret = bcf_hdr_sync(header->hdr);
+            }
+        }
+
         bool isAllPhased = false;
         int nploidy = 0;
         int nsamples;
@@ -248,12 +278,14 @@ namespace SeqLib
 
     private:
         bcf1_t* line = bcf_init(); // current bcf record
+        bcf_hdr_t* hdr_d;   // a dup header by bcf_hdr_dup(header->hdr)
         bcf_hdr_t* hdr = NULL;
         bcf_fmt_t* fmt = NULL;
         int32_t* gts = NULL;
         void* buf = NULL;
         int ndst = 0;
         int ret;
+        kstring_t s = {0, 0, NULL}; // kstring
     };
 
 } // namespace SeqLib

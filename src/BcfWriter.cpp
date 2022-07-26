@@ -83,16 +83,6 @@ namespace SeqLib
         {
             printf("contig id=%s is not in the header. please use header->AddContig() to add the contig first!", bcf_hdr_id2name(header->hdr, b->rid));
             throw std::runtime_error("contig id not found in the header. please run header->AddContig() first.\n");
-            // header->AddContig(contig);
-            // hdr_d = bcf_hdr_dup(header->hdr);
-            // header->hrec = bcf_hdr_id2hrec(hdr_d, BCF_DT_CTG, 0, b->rid);
-            // if (header->hrec == NULL)
-            //     throw std::runtime_error("contig" + contig + " unknow and not found in the header.\n");
-            // ret = bcf_hdr_add_hrec(header->hdr, header->hrec);
-            // printf("bcf_hdr_add_hrec %i \n", ret);
-            // if ( ret < 0)
-            //     throw std::runtime_error("error adding contig " + contig + " to header.\n");
-            // ret = bcf_hdr_sync(header->hdr);
         }
         ret = bcf_write(fp, header->hdr, b);
         if (ret != 0)
