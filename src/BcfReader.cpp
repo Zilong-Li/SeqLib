@@ -35,10 +35,9 @@ namespace SeqLib
             hts_itr_destroy(itr);
     }
 
-    // get next variant
+    // get next variant and automatically update header if something is missing
     bool BcfReader::GetNextVariant(BcfRecord& r)
     {
-        r.Init(header->hdr, nsamples);
         int ret;
         if (itr != NULL)
         {

@@ -134,17 +134,12 @@ namespace SeqLib
         friend class BcfWriter;
 
     public:
-        BcfRecord()
-        {
-        }
-        ~BcfRecord()
+        BcfRecord(const std::shared_ptr<BcfHeader>& h_) : header(h_)
         {
         }
 
-        inline void Init(bcf_hdr_t* hdr_, int nsamples_)
+        ~BcfRecord()
         {
-            hdr = hdr_;
-            nsamples = nsamples_;
         }
 
         void AsString()
@@ -156,7 +151,7 @@ namespace SeqLib
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
         GetGenotypes(T& gv)
         {
-            ret = bcf_get_genotypes(hdr, line, &gts, &ndst);
+            ret = bcf_get_genotypes(header->hdr, line, &gts, &ndst);
             if (ret <= 0)
                 return 0; // gt not present
             gv.resize(ret);
@@ -178,9 +173,9 @@ namespace SeqLib
         template <class T>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, void>::type
-        SetGenotypes(T& gv)
+        SetGenotypes(const T& gv)
         {
-            ret = bcf_update_genotypes(hdr, line, &gv[0], gv.size());
+            ret = bcf_update_genotypes(header->hdr, line, gv.data(), gv.size());
             if (ret < 0)
                 throw std::runtime_error("couldn't set genotypes correctly.\n");
         }
@@ -191,19 +186,19 @@ namespace SeqLib
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, bool>::type
         GetFormat(T& v, const std::string& tag)
         {
-            fmt = bcf_get_fmt(hdr, line, tag.c_str());
+            fmt = bcf_get_fmt(header->hdr, line, tag.c_str());
             shape1 = fmt->n;
             if (std::is_same<T, std::vector<int32_t>>::value)
             {
-                ret = bcf_get_format_int32(hdr, line, tag.c_str(), &buf, &ndst);
+                ret = bcf_get_format_int32(header->hdr, line, tag.c_str(), &buf, &ndst);
             }
             else if (std::is_same<T, std::vector<char>>::value)
             {
-                ret = bcf_get_format_char(hdr, line, tag.c_str(), &buf, &ndst);
+                ret = bcf_get_format_char(header->hdr, line, tag.c_str(), &buf, &ndst);
             }
             else if (std::is_same<T, std::vector<float>>::value)
             {
-                ret = bcf_get_format_float(hdr, line, tag.c_str(), &buf, &ndst);
+                ret = bcf_get_format_float(header->hdr, line, tag.c_str(), &buf, &ndst);
             }
             if (ret >= 0)
             {
@@ -228,25 +223,25 @@ namespace SeqLib
         template <typename T>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, void>::type
-        SetFormat(T& v, const std::string& tag)
+        SetFormat(const T& v, const std::string& tag)
         {
             if (std::is_same<T, std::vector<int32_t>>::value)
             {
-                ret = bcf_update_format_int32(hdr, line, tag.c_str(), &v[0], v.size());
+                ret = bcf_update_format_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             else if (std::is_same<T, std::vector<char>>::value)
             {
-                ret = bcf_update_format_char(hdr, line, tag.c_str(), &v[0], v.size());
+                ret = bcf_update_format_char(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             else if (std::is_same<T, std::vector<float>>::value)
             {
-                ret = bcf_update_format_float(hdr, line, tag.c_str(), &v[0], v.size());
+                ret = bcf_update_format_float(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             if (ret < 0)
                 throw std::runtime_error("couldn't set format correctly.\n");
         }
 
-        void AddLineFromString(const std::shared_ptr<BcfHeader>& header, const std::string& vcfline)
+        void AddLineFromString(const std::string& vcfline)
         {
             std::vector<char> str(vcfline.begin(), vcfline.end());
             str.push_back('\0'); // don't forget string has no \0;
@@ -275,11 +270,11 @@ namespace SeqLib
         int nploidy = 0;
         int nsamples;
         int shape1;
+        std::shared_ptr<BcfHeader> header;
 
     private:
         bcf1_t* line = bcf_init(); // current bcf record
-        bcf_hdr_t* hdr_d;   // a dup header by bcf_hdr_dup(header->hdr)
-        bcf_hdr_t* hdr = NULL;
+        bcf_hdr_t* hdr_d;          // a dup header by bcf_hdr_dup(header->hdr)
         bcf_fmt_t* fmt = NULL;
         int32_t* gts = NULL;
         void* buf = NULL;
