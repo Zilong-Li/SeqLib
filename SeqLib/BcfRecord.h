@@ -89,11 +89,11 @@ namespace SeqLib
             return bcf_hdr_set_version(hdr, version.c_str());
         }
 
-        inline char* AsString()
+        std::string AsString()
         {
             kstring_t s = {0, 0, NULL};          // kstring
             if (bcf_hdr_format(hdr, 0, &s) == 0) // append header string to s.s! append!
-                return s.s;
+                return std::string(s.s, s.l);
             else
                 throw std::runtime_error("failed to convert formatted header to string");
         }
@@ -142,8 +142,15 @@ namespace SeqLib
         {
         }
 
-        void AsString()
+        std::string AsString()
         {
+            s.s = NULL;
+            s.l = 0;
+            s.m = 0;
+            if (vcf_format(header->hdr, line, &s) == 0)
+                return std::string(s.s, s.l);
+            else
+                throw std::runtime_error("couldn't format current record into a string.\n");
         }
 
         template <class T>
