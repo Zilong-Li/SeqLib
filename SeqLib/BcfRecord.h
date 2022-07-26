@@ -51,14 +51,14 @@ namespace SeqLib
             AddLine("##contig=<ID=" + id + ">");
         }
 
-        inline void AddLine(const std::string& line)
+        inline void AddLine(const std::string& str)
         {
-            ret = bcf_hdr_append(hdr, line.c_str());
+            ret = bcf_hdr_append(hdr, str.c_str());
             if (ret != 0)
-                throw std::runtime_error("could not add " + line + " to header\n");
+                throw std::runtime_error("could not add " + str + " to header\n");
             ret = bcf_hdr_sync(hdr);
             if (ret != 0)
-                throw std::runtime_error("could not add " + line + " to header\n");
+                throw std::runtime_error("could not add " + str + " to header\n");
         }
 
         void SetSamples(const std::string& samples)
@@ -89,7 +89,7 @@ namespace SeqLib
             return bcf_hdr_set_version(hdr, version.c_str());
         }
 
-        std::string AsString()
+        std::string AsString() const
         {
             kstring_t s = {0, 0, NULL};          // kstring
             if (bcf_hdr_format(hdr, 0, &s) == 0) // append header string to s.s! append!
@@ -121,6 +121,8 @@ namespace SeqLib
             // TODO: return uninitialized vec may be undefined.
             return vec;
         }
+
+        int nsamples = 0;
 
     private:
         bcf_hdr_t* hdr;          // bcf header
@@ -162,9 +164,9 @@ namespace SeqLib
             if (ret <= 0)
                 return 0; // gt not present
             gv.resize(ret);
-            nploidy = ret / nsamples;
+            nploidy = ret / header->nsamples;
             int i, j, k = 0, nphased = 0;
-            for (i = 0; i < nsamples; i++)
+            for (i = 0; i < header->nsamples; i++)
             {
                 for (j = 0; j < nploidy; j++)
                 {
@@ -172,19 +174,37 @@ namespace SeqLib
                 }
                 nphased += (gts[1 + i * nploidy] & 1) == 1;
             }
-            if (nphased == nsamples)
+            if (nphased == header->nsamples)
                 isAllPhased = true;
             return 1;
         }
 
         template <class T>
         typename std::enable_if<
-            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, void>::type
-        SetGenotypes(const T& gv)
+            std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
+        SetGenotypes(const T& gv, bool phased = false)
         {
-            ret = bcf_update_genotypes(header->hdr, line, gv.data(), gv.size());
-            if (ret < 0)
+            ret = bcf_get_genotypes(header->hdr, line, &gts, &ndst);
+            if (ret <= 0)
+                return false; // gt not present
+            assert(ret == gv.size());
+            nploidy = ret / header->nsamples;
+            int i, j, k;
+            for (i = 0; i < header->nsamples; i++)
+            {
+                for (j = 0; j < nploidy; j++)
+                {
+                    k = i * nploidy + j;
+                    if (phased)
+                        gts[k] = bcf_gt_phased(gv[k]);
+                    else
+                        gts[k] = bcf_gt_unphased(gv[k]);
+                }
+            }
+            if (bcf_update_genotypes(header->hdr, line, gts, ret) < 0)
                 throw std::runtime_error("couldn't set genotypes correctly.\n");
+            else
+                return true;
         }
 
         // return a array for the requested field
@@ -211,7 +231,7 @@ namespace SeqLib
             {
                 v.resize(ret);
                 int i, j, k = 0;
-                for (i = 0; i < nsamples; i++)
+                for (i = 0; i < header->nsamples; i++)
                 {
                     for (j = 0; j < fmt->n; j++)
                     {
@@ -275,7 +295,6 @@ namespace SeqLib
 
         bool isAllPhased = false;
         int nploidy = 0;
-        int nsamples;
         int shape1;
         std::shared_ptr<BcfHeader> header;
 

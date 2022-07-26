@@ -7,7 +7,7 @@ namespace SeqLib
     {
         fp = hts_open(fname.c_str(), "r");
         header->hdr = bcf_hdr_read(fp);
-        nsamples = bcf_hdr_nsamples(header->hdr);
+        header->nsamples = bcf_hdr_nsamples(header->hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples) : fname(fname_)
@@ -15,7 +15,7 @@ namespace SeqLib
         fp = hts_open(fname.c_str(), "r");
         header->hdr = bcf_hdr_read(fp);
         header->SetSamples(samples);
-        nsamples = bcf_hdr_nsamples(header->hdr);
+        header->nsamples = bcf_hdr_nsamples(header->hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples, const std::string& region) : fname(fname_)
@@ -23,7 +23,7 @@ namespace SeqLib
         fp = hts_open(fname.c_str(), "r");
         header->hdr = bcf_hdr_read(fp);
         header->SetSamples(samples);
-        nsamples = bcf_hdr_nsamples(header->hdr);
+        header->nsamples = bcf_hdr_nsamples(header->hdr);
         SetRegion(region);
     }
 

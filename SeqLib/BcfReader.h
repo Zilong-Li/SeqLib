@@ -42,7 +42,6 @@ namespace SeqLib
 
         bool GetNextVariant(BcfRecord& r);
 
-        int nsamples;
         std::string fname;
         bool isBcf; // if the input file is bcf or vcf;
         std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
