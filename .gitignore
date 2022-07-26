@@ -42,3 +42,6 @@ compile_commands.json
 configure
 /Makefile
 /src/Makefile
+test.cpp
+test.*
+a.out*

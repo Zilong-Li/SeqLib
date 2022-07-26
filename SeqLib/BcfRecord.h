@@ -77,11 +77,48 @@ namespace SeqLib
         inline void AddSample(const std::string& sample)
         {
             bcf_hdr_add_sample(hdr, sample.c_str());
+            if (bcf_hdr_sync(hdr) != 0)
+            {
+                throw std::runtime_error("couldn't add the sample.\n");
+            }
         }
 
-        inline int SetVersion(const std::string& version)
+        inline int SetVersion(const std::string& version) const
         {
             return bcf_hdr_set_version(hdr, version.c_str());
+        }
+
+        inline char* AsString()
+        {
+            kstring_t s = {0, 0, NULL};          // kstring
+            if (bcf_hdr_format(hdr, 0, &s) == 0) // append header string to s.s! append!
+                return s.s;
+            else
+                throw std::runtime_error("failed to convert formatted header to string");
+        }
+
+        std::vector<std::string> GetSamples() const
+        {
+            std::vector<std::string> vec;
+            for (int i = 0; i < bcf_hdr_nsamples(hdr); i++)
+            {
+                vec.emplace_back(std::string(hdr->samples[i]));
+            }
+            return vec;
+        }
+
+        std::vector<std::string> GetSeqnames()
+        {
+            const char** seqs = bcf_hdr_seqnames(hdr, &ret);
+            if (ret == 0)
+                printf("there is no contig id in the header!\n");
+            std::vector<std::string> vec;
+            for (int i = 0; i < ret; i++)
+            {
+                vec.emplace_back(std::string(seqs[i]));
+            }
+            // TODO: return uninitialized vec may be undefined.
+            return vec;
         }
 
     private:
@@ -133,6 +170,16 @@ namespace SeqLib
             return 1;
         }
 
+        template <class T>
+        typename std::enable_if<
+            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, void>::type
+        SetGenotypes(T& gv)
+        {
+            ret = bcf_update_genotypes(hdr, line, &gv[0], gv.size());
+            if (ret < 0)
+                throw std::runtime_error("couldn't set genotypes correctly.\n");
+        }
+
         // return a array for the requested field
         template <typename T>
         typename std::enable_if<
@@ -171,6 +218,27 @@ namespace SeqLib
             {
                 return false;
             }
+        }
+
+        template <typename T>
+        typename std::enable_if<
+            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, void>::type
+        SetFormat(T& v, const std::string& tag)
+        {
+            if (std::is_same<T, std::vector<int32_t>>::value)
+            {
+                ret = bcf_update_format_int32(hdr, line, tag.c_str(), &v[0], v.size());
+            }
+            else if (std::is_same<T, std::vector<char>>::value)
+            {
+                ret = bcf_update_format_char(hdr, line, tag.c_str(), &v[0], v.size());
+            }
+            else if (std::is_same<T, std::vector<float>>::value)
+            {
+                ret = bcf_update_format_float(hdr, line, tag.c_str(), &v[0], v.size());
+            }
+            if (ret < 0)
+                throw std::runtime_error("couldn't set format correctly.\n");
         }
 
         bool isAllPhased = false;

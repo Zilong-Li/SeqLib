@@ -28,7 +28,7 @@ namespace SeqLib
 
         ~BcfWriter();
 
-        void InitalHeader(std::string version = "VCF4.3");
+        void InitalHeader(std::string version = "VCF4.1");
 
         bool WriteRecord(BcfRecord& r);
 
