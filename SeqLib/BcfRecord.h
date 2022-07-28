@@ -27,7 +27,7 @@ namespace SeqLib
 
         ~BcfHeader()
         {
-            // bcf_hdr_destroy(hdr); cause double free issue
+            // bcf_hdr_destroy(hdr); // cause double free issue
         }
 
         // todo : check if the value is valid for vcf specification
@@ -207,7 +207,6 @@ namespace SeqLib
             {
                 // user have to check if there is missing in the return v;
                 v = std::vector<S>(buf, buf + ret);
-                free(buf);
             }
             else
             {
@@ -292,7 +291,7 @@ namespace SeqLib
 
         bool isAllPhased = false;
         int nploidy = 0;
-        int shape1;
+        int shape1 = 0;
         std::shared_ptr<BcfHeader> header;
 
     private:

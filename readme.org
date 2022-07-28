@@ -17,8 +17,8 @@ see more examples in [[https://github.com/Zilong-Li/SeqLib/tree/master/test][tes
 
 #+begin_src C++
 // Parsing VCF with subset samples in target region
-BcfReader br("chr20.2000001.2100000.vcf.gz", "HG00107,HG00108,HG00109", "chr20:2006060-");
-BcfRecord v;
+BcfReader br("test/chr20.2000001.2100000.vcf.gz", "HG00107,HG00108,HG00109", "chr20:2006060-");
+BcfRecord v(br.header);
 // supports genotype vector of vector<bool>, vector<char> and vector<int>
 vector<bool> gt;
 int n = 0;
@@ -31,15 +31,29 @@ while (br.GetNextVariant(v))
 
 ** BcfWriter
 
+1. create an new VCF template then add records
+
 #+begin_src C++
 // supports file suffix with bcf, bcf.gz, vcf, vcf.gz
-BcfWriter bw("test.bcf");
-bw.InitalHeader();
-bw.header->AddFormat("GT", "1", "String", "Genotype");
-bw.header->AddInfo("AF", "A", "Float", "Estimated allele frequency in the range (0,1)");
-bw.header->AddContig("chr20");
-bw.header->AddSample("NA12878");
+BcfWriter bw("test.vcf");
+bw.InitalHeader("VCF4.3");
+bw.header.AddFormat("GT", "1", "String", "Genotype");
+bw.header.AddInfo("AF", "A", "Float", "Estimated allele frequency in the range (0,1)");
+bw.header.AddContig("chr20");
+bw.header.AddSample("NA12878");
 bw.WriteLine("chr20\t2006060\trs146931526\tG\tC\t100\tPASS\tAF=0.000998403\tGT\t1|0");
+#+end_src
+
+2. use another VCF as template then add records
+
+#+begin_src C++
+BcfReader br("./htslib/test/test-vcf-hdr-in.vcf");
+BcfRecord v(br.header);
+BcfWriter bw("test.vcf");
+bw.InitalHeader(br.header);
+bw.WriteHeader();
+br.GetNextVariant(v);
+bw.WriteRecord(v);
 #+end_src
 
 * Installation

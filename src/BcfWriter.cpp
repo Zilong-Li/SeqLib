@@ -50,8 +50,9 @@ namespace SeqLib
     {
         header = BcfHeader();
         header.hdr = bcf_hdr_dup(h.hdr); // make a copy of given header
-        if (ret != 0)
-            throw std::runtime_error("couldn't set the version correctly.\n");
+        header.nsamples = bcf_hdr_nsamples(header.hdr);
+        if (header.hdr == NULL)
+            throw std::runtime_error("couldn't copy the header from another vcf.\n");
     }
 
 

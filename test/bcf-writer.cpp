@@ -52,13 +52,6 @@ TEST_CASE("Write VCF with custome header and variants", "[bcf-writer]")
     bw.WriteLine("chr20\t2006060\trs146931526\tG\tC\t100\tPASS\tAF=0.000998403\tGT\t1|0");
 }
 
-TEST_CASE("Write VCF by copying header from another VCF", "[bcf-writer]")
-{
-    BcfWriter bw("test.vcf.gz");
-    BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
-    bw.WriteHeader();
-}
-
 TEST_CASE("Write VCF with custome header", "[bcf-writer]")
 {
     BcfWriter bw("test.vcf");
@@ -67,4 +60,15 @@ TEST_CASE("Write VCF with custome header", "[bcf-writer]")
     bw.header.AddFormat("GT", "1", "String", "Genotype");
     bw.header.AddInfo("AF", "A", "Float", "Estimated allele frequency in the range (0,1)");
     bw.WriteHeader();
+}
+
+TEST_CASE("Write VCF by copying header from another VCF", "[bcf-writer]")
+{
+    BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
+    BcfRecord v(br.header);
+    BcfWriter bw("test.vcf");
+    bw.InitalHeader(br.header);
+    bw.WriteHeader();
+    br.GetNextVariant(v);
+    bw.WriteRecord(v);
 }
