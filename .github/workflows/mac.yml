@@ -32,5 +32,4 @@ jobs:
         make
         ./bcf-reader.bin
         ./bcf-writer.bin
-        ./bam-reader.bin
         # find . -name "*.bin" -exec '{}' --success ';'
