@@ -39,33 +39,30 @@ namespace SeqLib
 
     void BcfWriter::InitalHeader(std::string version)
     {
-        header->hdr = bcf_hdr_init("w");
-        ret = header->SetVersion(version);
+        header = BcfHeader();
+        header.hdr = bcf_hdr_init("w");
+        ret = header.SetVersion(version);
         if (ret != 0)
             throw std::runtime_error("couldn't set the version correctly.\n");
     }
 
+    void BcfWriter::InitalHeader(const BcfHeader& h)
+    {
+        header = BcfHeader();
+        header.hdr = bcf_hdr_dup(h.hdr); // make a copy of given header
+        if (ret != 0)
+            throw std::runtime_error("couldn't set the version correctly.\n");
+    }
+
+
     bool BcfWriter::WriteHeader()
     {
-        ret = bcf_hdr_write(fp, header->hdr);
+        ret = bcf_hdr_write(fp, header.hdr);
         if (ret == 0)
             return isHeaderWritten = true;
         else
             return false;
     }
-
-    bool BcfWriter::WriteHeader(const std::shared_ptr<BcfHeader>& h)
-    {
-        header = h;
-        // printf("address of first header = %p\n", &h);
-        // printf("address of second header = %p\n", &header);
-        ret = bcf_hdr_write(fp, header->hdr);
-        if (ret == 0)
-            return isHeaderWritten = true;
-        else
-            return false;
-    }
-
 
     void BcfWriter::WriteLine(const std::string& vcfline)
     {
@@ -76,15 +73,15 @@ namespace SeqLib
         s.s = &line[0];
         s.l = vcfline.length();
         s.m = vcfline.length();
-        ret = vcf_parse(&s, header->hdr, b);
+        ret = vcf_parse(&s, header.hdr, b);
         if (ret > 0)
             throw std::runtime_error("error parsing: " + vcfline + "\n");
         if (b->errcode == BCF_ERR_CTG_UNDEF)
         {
-            printf("contig id=%s is not in the header. please use header->AddContig() to add the contig first!", bcf_hdr_id2name(header->hdr, b->rid));
+            printf("contig id=%s is not in the header. please use header->AddContig() to add the contig first!", bcf_hdr_id2name(header.hdr, b->rid));
             throw std::runtime_error("contig id not found in the header. please run header->AddContig() first.\n");
         }
-        ret = bcf_write(fp, header->hdr, b);
+        ret = bcf_write(fp, header.hdr, b);
         if (ret != 0)
             throw std::runtime_error("error writing: " + vcfline + "\n");
     }

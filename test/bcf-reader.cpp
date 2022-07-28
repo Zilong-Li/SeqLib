@@ -21,7 +21,7 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
         }
         cout << endl;
         v.GetFormat(gatk, "GATK");
-        for (int i = 0; i < v.nsamples; i++) {
+        for (int i = 0; i < v.header->nsamples; i++) {
             cout << string(gatk.begin()+ i*v.shape1, gatk.begin() + i * v.shape1 + v.shape1 - 1) << ":";
         }
         cout << endl;

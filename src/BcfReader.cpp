@@ -3,27 +3,27 @@
 
 namespace SeqLib
 {
-    BcfReader::BcfReader(const std::string& fname_) : fname(fname_)
+    BcfReader::BcfReader(const std::string& fname_) : fname(fname_), header(BcfHeader())
     {
         fp = hts_open(fname.c_str(), "r");
-        header->hdr = bcf_hdr_read(fp);
-        header->nsamples = bcf_hdr_nsamples(header->hdr);
+        header.hdr = bcf_hdr_read(fp);
+        header.nsamples = bcf_hdr_nsamples(header.hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples) : fname(fname_)
     {
         fp = hts_open(fname.c_str(), "r");
-        header->hdr = bcf_hdr_read(fp);
-        header->SetSamples(samples);
-        header->nsamples = bcf_hdr_nsamples(header->hdr);
+        header.hdr = bcf_hdr_read(fp);
+        header.SetSamples(samples);
+        header.nsamples = bcf_hdr_nsamples(header.hdr);
     }
 
     BcfReader::BcfReader(const std::string& fname_, const std::string& samples, const std::string& region) : fname(fname_)
     {
         fp = hts_open(fname.c_str(), "r");
-        header->hdr = bcf_hdr_read(fp);
-        header->SetSamples(samples);
-        header->nsamples = bcf_hdr_nsamples(header->hdr);
+        header.hdr = bcf_hdr_read(fp);
+        header.SetSamples(samples);
+        header.nsamples = bcf_hdr_nsamples(header.hdr);
         SetRegion(region);
     }
 
@@ -51,14 +51,14 @@ namespace SeqLib
                 int slen = tbx_itr_next(fp, tidx, itr, &s);
                 if (slen > 0)
                 {
-                    ret = vcf_parse(&s, header->hdr, r.line); // ret > 0, error
+                    ret = vcf_parse(&s, r.header->hdr, r.line); // ret > 0, error
                 }
                 return (ret <= 0) && (slen > 0);
             }
         }
         else
         {
-            ret = bcf_read(fp, header->hdr, r.line);
+            ret = bcf_read(fp, r.header->hdr, r.line);
             return (ret == 0);
         }
     }
@@ -83,7 +83,7 @@ namespace SeqLib
         {
             isBcf = true;
             hidx = bcf_index_load(fname.c_str());
-            itr = bcf_itr_querys(hidx, header->hdr, region.c_str());
+            itr = bcf_itr_querys(hidx, header.hdr, region.c_str());
         }
         else
         {

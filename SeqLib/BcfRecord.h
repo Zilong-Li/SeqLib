@@ -27,7 +27,7 @@ namespace SeqLib
 
         ~BcfHeader()
         {
-            bcf_hdr_destroy(hdr);
+            // bcf_hdr_destroy(hdr); cause double free issue
         }
 
         // todo : check if the value is valid for vcf specification
@@ -136,7 +136,7 @@ namespace SeqLib
         friend class BcfWriter;
 
     public:
-        BcfRecord(const std::shared_ptr<BcfHeader>& h_) : header(h_)
+        BcfRecord(BcfHeader& h_) : header(std::make_shared<BcfHeader>(h_))
         {
         }
 
@@ -208,14 +208,15 @@ namespace SeqLib
         }
 
         // return a array for the requested field
-        template <typename T>
+        template <typename T, typename S = typename T::value_type>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, bool>::type
         GetFormat(T& v, const std::string& tag)
         {
             fmt = bcf_get_fmt(header->hdr, line, tag.c_str());
             shape1 = fmt->n;
-            if (std::is_same<T, std::vector<int32_t>>::value)
+            S* buf = NULL;
+            if (std::is_same<T, std::vector<int>>::value)
             {
                 ret = bcf_get_format_int32(header->hdr, line, tag.c_str(), &buf, &ndst);
             }
@@ -227,6 +228,7 @@ namespace SeqLib
             {
                 ret = bcf_get_format_float(header->hdr, line, tag.c_str(), &buf, &ndst);
             }
+            printf("fmt-n %d, nsaples %d \n", fmt->n, header->nsamples);
             if (ret >= 0)
             {
                 v.resize(ret);
@@ -236,7 +238,7 @@ namespace SeqLib
                     for (j = 0; j < fmt->n; j++)
                     {
                         // https://stackoverflow.com/questions/16687172/cast-a-value-using-decltype-is-it-possible
-                        v[k++] = static_cast<typename T::value_type*>(buf)[j + i * fmt->n];
+                        v[k++] = buf[j + i * fmt->n];
                     }
                 }
                 return true;
@@ -303,7 +305,6 @@ namespace SeqLib
         bcf_hdr_t* hdr_d;          // a dup header by bcf_hdr_dup(header->hdr)
         bcf_fmt_t* fmt = NULL;
         int32_t* gts = NULL;
-        void* buf = NULL;
         int ndst = 0;
         int ret;
         kstring_t s = {0, 0, NULL}; // kstring

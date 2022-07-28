@@ -30,23 +30,23 @@ namespace SeqLib
 
         void InitalHeader(std::string version = "VCF4.1");
 
+        // make a copy of given header
+        void InitalHeader(const BcfHeader& h);
+
         void WriteLine(const std::string& vcfline);
 
         bool WriteHeader();
 
-        // use copy assignment of shared_ptr
-        bool WriteHeader(const std::shared_ptr<BcfHeader>& h);
-
         inline bool WriteRecord(BcfRecord& v) const
         {
-            if (bcf_write(fp, header->hdr, v.line) < 0)
+            if (bcf_write(fp, v.header->hdr, v.line) < 0)
                 return false;
             else
                 return true;
         }
 
 
-        std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
+        BcfHeader header; // bcf header
 
     private:
         htsFile* fp = NULL; // hts file

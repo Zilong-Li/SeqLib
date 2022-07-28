@@ -44,7 +44,7 @@ namespace SeqLib
 
         std::string fname;
         bool isBcf; // if the input file is bcf or vcf;
-        std::shared_ptr<BcfHeader> header = std::make_shared<BcfHeader>(); // bcf header
+        BcfHeader header; // bcf header
     private:
         htsFile* fp = NULL;         // hts file
         hts_idx_t* hidx = NULL;     // hts index file
