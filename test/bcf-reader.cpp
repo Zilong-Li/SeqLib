@@ -10,23 +10,41 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
     // BcfReader br("../htslib/test/index.vcf");
     BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
     BcfRecord v(br.header);
-    vector<int> ad;
+    vector<int32_t> ad;
+    vector<int32_t> gq;
     vector<char> gatk;
+    vector<bool> gt;
     int n = 0;
     while (br.GetNextVariant(v))
     {
+        n++;
+
+        v.GetGenotypes(gt);
+        for (auto i : gt) {
+            cout << i << ":";
+        }
+        cout << endl;
+
         v.GetFormat(ad, "AD");
         for (auto i : ad) {
             cout << i << ":";
         }
         cout << endl;
+
+        v.GetFormat(gq, "GQ");
+        for (auto i : gq) {
+            cout << i << ":";
+        }
+        cout << endl;
+
         v.GetFormat(gatk, "GATK");
         for (int i = 0; i < v.header->nsamples; i++) {
             cout << string(gatk.begin()+ i*v.shape1, gatk.begin() + i * v.shape1 + v.shape1 - 1) << ":";
         }
         cout << endl;
-        n++;
+
     }
+
     REQUIRE(n == 10);
 }
 

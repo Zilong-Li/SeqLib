@@ -160,12 +160,14 @@ namespace SeqLib
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
         GetGenotypes(T& gv)
         {
+            ndst = 0;
             ret = bcf_get_genotypes(header->hdr, line, &gts, &ndst);
             if (ret <= 0)
                 return 0; // gt not present
             gv.resize(ret);
             nploidy = ret / header->nsamples;
             int i, j, k = 0, nphased = 0;
+            // gts = static_cast<int32_t*>(buf);
             for (i = 0; i < header->nsamples; i++)
             {
                 for (j = 0; j < nploidy; j++)
@@ -179,11 +181,55 @@ namespace SeqLib
             return 1;
         }
 
+        // return a array for the requested field
+        template <typename T, typename S = typename T::value_type>
+        typename std::enable_if<
+            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, void>::type
+        GetFormat(T& v, std::string tag)
+        {
+            fmt = bcf_get_fmt(header->hdr, line, tag.c_str());
+            shape1 = fmt->n;
+            ndst = 0;
+            S* buf = NULL;
+            if (std::is_same<T, std::vector<int>>::value)
+            {
+                ret = bcf_get_format_int32(header->hdr, line, tag.c_str(), &buf, &ndst);
+            }
+            else if (std::is_same<T, std::vector<char>>::value)
+            {
+                ret = bcf_get_format_char(header->hdr, line, tag.c_str(), &buf, &ndst);
+            }
+            else if (std::is_same<T, std::vector<float>>::value)
+            {
+                ret = bcf_get_format_float(header->hdr, line, tag.c_str(), &buf, &ndst);
+            }
+            if (ret >= 0)
+            {
+                // have to check for missing
+                v = std::vector<S>(buf, buf + ret);
+                // v = std::vector<S>(static_cast<S *>(buf), static_cast<S *>(buf) + ret);
+                // v.resize(ret);
+                // int i, j, k = 0;
+                // for (i = 0; i < header->nsamples; i++)
+                // {
+                //     for (j = 0; j < fmt->n; j++)
+                //     {
+                //         v[k++] = static_cast<S*>(buf)[j + i * fmt->n];
+                //     }
+                // }
+            }
+            else
+            {
+                throw std::runtime_error("couldn't parse the format of this variant.\n");
+            }
+        }
+
         template <class T>
         typename std::enable_if<
             std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
         SetGenotypes(const T& gv, bool phased = false)
         {
+            ndst = 0;
             ret = bcf_get_genotypes(header->hdr, line, &gts, &ndst);
             if (ret <= 0)
                 return false; // gt not present
@@ -205,48 +251,6 @@ namespace SeqLib
                 throw std::runtime_error("couldn't set genotypes correctly.\n");
             else
                 return true;
-        }
-
-        // return a array for the requested field
-        template <typename T, typename S = typename T::value_type>
-        typename std::enable_if<
-            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, bool>::type
-        GetFormat(T& v, const std::string& tag)
-        {
-            fmt = bcf_get_fmt(header->hdr, line, tag.c_str());
-            shape1 = fmt->n;
-            S* buf = NULL;
-            if (std::is_same<T, std::vector<int>>::value)
-            {
-                ret = bcf_get_format_int32(header->hdr, line, tag.c_str(), &buf, &ndst);
-            }
-            else if (std::is_same<T, std::vector<char>>::value)
-            {
-                ret = bcf_get_format_char(header->hdr, line, tag.c_str(), &buf, &ndst);
-            }
-            else if (std::is_same<T, std::vector<float>>::value)
-            {
-                ret = bcf_get_format_float(header->hdr, line, tag.c_str(), &buf, &ndst);
-            }
-            printf("fmt-n %d, nsaples %d \n", fmt->n, header->nsamples);
-            if (ret >= 0)
-            {
-                v.resize(ret);
-                int i, j, k = 0;
-                for (i = 0; i < header->nsamples; i++)
-                {
-                    for (j = 0; j < fmt->n; j++)
-                    {
-                        // https://stackoverflow.com/questions/16687172/cast-a-value-using-decltype-is-it-possible
-                        v[k++] = buf[j + i * fmt->n];
-                    }
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         template <typename T>
@@ -305,8 +309,7 @@ namespace SeqLib
         bcf_hdr_t* hdr_d;          // a dup header by bcf_hdr_dup(header->hdr)
         bcf_fmt_t* fmt = NULL;
         int32_t* gts = NULL;
-        int ndst = 0;
-        int ret;
+        int ndst, ret;
         kstring_t s = {0, 0, NULL}; // kstring
     };
 
