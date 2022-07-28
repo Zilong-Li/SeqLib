@@ -205,22 +205,13 @@ namespace SeqLib
             }
             if (ret >= 0)
             {
-                // have to check for missing
+                // user have to check if there is missing in the return v;
                 v = std::vector<S>(buf, buf + ret);
-                // v = std::vector<S>(static_cast<S *>(buf), static_cast<S *>(buf) + ret);
-                // v.resize(ret);
-                // int i, j, k = 0;
-                // for (i = 0; i < header->nsamples; i++)
-                // {
-                //     for (j = 0; j < fmt->n; j++)
-                //     {
-                //         v[k++] = static_cast<S*>(buf)[j + i * fmt->n];
-                //     }
-                // }
+                free(buf);
             }
             else
             {
-                throw std::runtime_error("couldn't parse the format of this variant.\n");
+                throw std::runtime_error("couldn't parse the " + tag + " format of this variant.\n");
             }
         }
 
@@ -256,7 +247,7 @@ namespace SeqLib
         template <typename T>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, void>::type
-        SetFormat(const T& v, const std::string& tag)
+        SetFormat(const T& v, std::string tag)
         {
             if (std::is_same<T, std::vector<int32_t>>::value)
             {
@@ -271,7 +262,7 @@ namespace SeqLib
                 ret = bcf_update_format_float(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             if (ret < 0)
-                throw std::runtime_error("couldn't set format correctly.\n");
+                throw std::runtime_error("couldn't set format " + tag +" correctly.\n");
         }
 
         void AddLineFromString(const std::string& vcfline)

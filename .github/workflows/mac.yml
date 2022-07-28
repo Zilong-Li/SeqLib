@@ -30,4 +30,7 @@ jobs:
       run: |
         cd test
         make
-        find . -name "*.bin" -exec '{}' --success ';'
+        ./bcf-reader.bin
+        ./bcf-writer.bin
+        ./bam-reader.bin
+        # find . -name "*.bin" -exec '{}' --success ';'

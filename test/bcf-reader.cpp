@@ -8,10 +8,11 @@ using namespace std;
 TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
 {
     // BcfReader br("../htslib/test/index.vcf");
-    BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
+    // BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
+    BcfReader br("test-vcf-read.vcf");
     BcfRecord v(br.header);
-    vector<int32_t> ad;
-    vector<int32_t> gq;
+    vector<float> ad;
+    vector<int> gq;
     vector<char> gatk;
     vector<bool> gt;
     int n = 0;
