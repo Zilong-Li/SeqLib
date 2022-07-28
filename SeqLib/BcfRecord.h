@@ -61,20 +61,6 @@ namespace SeqLib
                 throw std::runtime_error("could not add " + str + " to header\n");
         }
 
-        void SetSamples(const std::string& samples)
-        {
-
-            ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
-            if (ret > 0)
-            {
-                throw std::runtime_error("the " + std::to_string(ret) + "-th sample are not in the VCF.\n");
-            }
-            else if (ret == -1)
-            {
-                throw std::runtime_error("couldn't set samples. something wrong.\n");
-            }
-        }
-
         inline void AddSample(const std::string& sample)
         {
             bcf_hdr_add_sample(hdr, sample.c_str());
@@ -84,12 +70,7 @@ namespace SeqLib
             }
         }
 
-        inline int SetVersion(const std::string& version) const
-        {
-            return bcf_hdr_set_version(hdr, version.c_str());
-        }
-
-        std::string AsString() const
+        inline std::string AsString() const
         {
             kstring_t s = {0, 0, NULL};          // kstring
             if (bcf_hdr_format(hdr, 0, &s) == 0) // append header string to s.s! append!
@@ -120,6 +101,46 @@ namespace SeqLib
             }
             // TODO: return uninitialized vec may be undefined.
             return vec;
+        }
+
+        inline void RemoveContig(std::string tag) const
+        {
+
+            bcf_hdr_remove(hdr, BCF_HL_CTG, tag.c_str());
+        }
+
+        inline void RemoveInfo(std::string tag) const
+        {
+            bcf_hdr_remove(hdr, BCF_HL_INFO, tag.c_str());
+        }
+
+        inline void RemoveFormat(std::string tag) const
+        {
+            bcf_hdr_remove(hdr, BCF_HL_FMT, tag.c_str());
+        }
+
+        inline void RemoveFilter(std::string tag) const
+        {
+            bcf_hdr_remove(hdr, BCF_HL_FLT, tag.c_str());
+        }
+
+        inline void SetSamples(const std::string& samples)
+        {
+
+            ret = bcf_hdr_set_samples(hdr, samples.c_str(), 0);
+            if (ret > 0)
+            {
+                throw std::runtime_error("the " + std::to_string(ret) + "-th sample are not in the VCF.\n");
+            }
+            else if (ret == -1)
+            {
+                throw std::runtime_error("couldn't set samples. something wrong.\n");
+            }
+        }
+
+        inline int SetVersion(const std::string& version) const
+        {
+            return bcf_hdr_set_version(hdr, version.c_str());
         }
 
         int nsamples = 0;
@@ -157,7 +178,7 @@ namespace SeqLib
 
         template <class T>
         typename std::enable_if<
-            std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
+            std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
         GetGenotypes(T& gv)
         {
             ndst = 0;
@@ -214,6 +235,60 @@ namespace SeqLib
             }
         }
 
+        void GetInfo();
+
+        template <typename T>
+        typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, float>::value ||
+                                    std::is_same<T, std::vector<float>>::value,
+                                void>::type
+        SetInfo(std::string tag, const T& v)
+        {
+            ret = -1;
+            if (std::is_same<T, int>::value)
+            {
+                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), &v, 1);
+            }
+            else if (std::is_same<T, std::vector<int>>::value)
+            {
+                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
+            }
+            else if (std::is_same<T, float>::value)
+            {
+                ret = bcf_update_info_float(header->hdr, line, tag.c_str(), &v, 1);
+            }
+            else if (std::is_same<T, std::vector<float>>::value)
+            {
+                ret = bcf_update_info_float(header->hdr, line, tag.c_str(), v.data(), v.size());
+            }
+            if (ret < 0)
+            {
+                throw std::runtime_error("couldn't set " + tag + " for this variant.\n");
+            }
+        }
+
+        template <typename T>
+        typename std::enable_if<std::is_same<T, char>::value || std::is_same<T, int>::value || std::is_same<T, float>::value, void>::type
+        RemoveInfo(std::string tag, const T& t)
+        {
+            ret = -1;
+            if (std::is_same<T, int>::value)
+            {
+                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), NULL, 0);
+            }
+            else if (std::is_same<T, float>::value)
+            {
+                ret = bcf_update_info_float(header->hdr, line, tag.c_str(), NULL, 0);
+            }
+            else if (std::is_same<T, char>::value)
+            {
+                ret = bcf_update_info_string(header->hdr, line, tag.c_str(), NULL);
+            }
+            if (ret < 0)
+            {
+                throw std::runtime_error("couldn't remove " + tag + " for this variant.\n");
+            }
+        }
+
         template <class T>
         typename std::enable_if<
             std::is_same<T, std::vector<bool>>::value || std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value, bool>::type
@@ -261,7 +336,7 @@ namespace SeqLib
                 ret = bcf_update_format_float(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             if (ret < 0)
-                throw std::runtime_error("couldn't set format " + tag +" correctly.\n");
+                throw std::runtime_error("couldn't set format " + tag + " correctly.\n");
         }
 
         void AddLineFromString(const std::string& vcfline)
