@@ -1,5 +1,11 @@
 #+TITLE: Changelog
 
+- v0.1.2
+  - add =BcfHeader=
+  - add =BcfRecord=
+  - add =BcfReader=
+  - add =BcfWriter=
+
 - v0.1.1
   - upgrade to htslib v1.15.1
   - add github workflows

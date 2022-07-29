@@ -19,7 +19,6 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
     while (br.GetNextVariant(v))
     {
         n++;
-
         v.GetGenotypes(gt);
         for (auto i : gt) {
             cout << i << ":";
@@ -45,6 +44,26 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
         cout << endl;
 
     }
+    std::shared_ptr<BcfHeader> h = std::make_shared<BcfHeader>(br.header);
+    h->RemoveContig("1");
+    h->RemoveContig("16");
+    h->RemoveFilter("LowQual");
+    h->RemoveInfo("TRAILING");
+    cout << h->AsString() << endl;
+
+    BcfReader br2("../htslib/test/index.vcf");
+    BcfRecord v2(br2.header);
+    br2.GetNextVariant(v2);
+    v2.RemoveInfo<int>("DP");
+    br2.header.AddInfo("Str", "1", "String", "this is a test for adding string in INFO");
+    v2.SetInfo("Str", string{"S1S2"});
+    v2.SetInfo("Str", string{"str"});
+    v2.SetInfo("DP", vector<int>{1,2});
+    v2.SetInfo("DP", 2);
+
+    cout << br2.header.AsString() << endl;
+    cout << v2.GetInfo<float>("DP") << endl;
+    cout << v2.AsString() << endl;
 
     REQUIRE(n == 10);
 }

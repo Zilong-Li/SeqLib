@@ -37,8 +37,10 @@ namespace SeqLib
 
         bool WriteHeader();
 
-        inline bool WriteRecord(BcfRecord& v) const
+        inline bool WriteRecord(BcfRecord& v)
         {
+            if (!isHeaderWritten)
+                WriteHeader();
             if (bcf_write(fp, v.header->hdr, v.line) < 0)
                 return false;
             else
