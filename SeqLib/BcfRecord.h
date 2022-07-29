@@ -13,6 +13,10 @@ extern "C"
 
 namespace SeqLib
 {
+    // helper types since c++14
+    template <bool B, class T = void>
+    using enable_if_t = typename std::enable_if<B, T>::type;
+
     class BcfHeader
     {
         friend class BcfRecord;
@@ -235,40 +239,98 @@ namespace SeqLib
             }
         }
 
-        void GetInfo();
+        template <typename T>
+        T GetInfo(std::string tag)
+        {
+            info = bcf_get_info(header->hdr, line, tag.c_str());
+            if (info->len == 1)
+            {
+                // scalar value
+                if (info->type == BCF_BT_INT8)
+                {
+                    if (info->v1.i == INT8_MIN)
+                        return -1;
+                    else
+                        return info->v1.i;
+                }
+                else if (info->type == BCF_BT_INT16)
+                {
+                    if (info->v1.i == INT16_MIN)
+                        return -1;
+                    else
+                        return info->v1.i;
+                }
+                else if (info->type == BCF_BT_INT32)
+                {
+                    if (info->v1.i == INT32_MIN)
+                        return -1;
+                    else
+                        return info->v1.i;
+                }
+                else if (info->type == BCF_BT_FLOAT)
+                {
+                    if (bcf_float_is_missing(info->v1.f))
+                        return -1;
+                    else
+                        return info->v1.f;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
         template <typename T>
-        typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, float>::value ||
-                                    std::is_same<T, std::vector<float>>::value,
-                                void>::type
-        SetInfo(std::string tag, const T& v)
+        typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, float>::value, void>::type SetInfo(std::string tag, const T& v)
         {
             ret = -1;
             if (std::is_same<T, int>::value)
             {
                 ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), &v, 1);
             }
-            else if (std::is_same<T, std::vector<int>>::value)
-            {
-                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
-            }
             else if (std::is_same<T, float>::value)
             {
                 ret = bcf_update_info_float(header->hdr, line, tag.c_str(), &v, 1);
+            }
+            if (ret < 0)
+            {
+                throw std::runtime_error("couldn't set " + tag + " for this variant.\nplease add the tag in header first.\n");
+            }
+        }
+
+        template <typename T>
+        typename std::enable_if<std::is_same<T, std::string>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value,
+                                void>::type
+        SetInfo(std::string tag, const T& v)
+        {
+            ret = -1;
+            if (std::is_same<T, std::vector<int>>::value)
+            {
+                printf("type vector<int>\n");
+                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
             else if (std::is_same<T, std::vector<float>>::value)
             {
                 ret = bcf_update_info_float(header->hdr, line, tag.c_str(), v.data(), v.size());
             }
+            else if (std::is_same<T, std::string>::value)
+            {
+                ret = bcf_update_info_string(header->hdr, line, tag.c_str(), v.data());
+            }
             if (ret < 0)
             {
-                throw std::runtime_error("couldn't set " + tag + " for this variant.\n");
+                throw std::runtime_error("couldn't remove " + tag + " for this variant.\n");
             }
         }
 
         template <typename T>
         typename std::enable_if<std::is_same<T, char>::value || std::is_same<T, int>::value || std::is_same<T, float>::value, void>::type
-        RemoveInfo(std::string tag, const T& t)
+        RemoveInfo(std::string tag)
         {
             ret = -1;
             if (std::is_same<T, int>::value)
@@ -373,6 +435,7 @@ namespace SeqLib
         bcf1_t* line = bcf_init(); // current bcf record
         bcf_hdr_t* hdr_d;          // a dup header by bcf_hdr_dup(header->hdr)
         bcf_fmt_t* fmt = NULL;
+        bcf_info_t* info = NULL;
         int32_t* gts = NULL;
         int ndst, ret;
         kstring_t s = {0, 0, NULL}; // kstring
