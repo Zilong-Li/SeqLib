@@ -26,12 +26,12 @@ namespace SeqLib
     public:
         BcfHeader()
         {
-            hdr = NULL;
         }
 
         ~BcfHeader()
         {
             // bcf_hdr_destroy(hdr); // cause double free issue
+            bcf_hrec_destroy(hrec);
         }
 
         // todo : check if the value is valid for vcf specification
@@ -150,7 +150,7 @@ namespace SeqLib
         int nsamples = 0;
 
     private:
-        bcf_hdr_t* hdr;          // bcf header
+        bcf_hdr_t* hdr = NULL;   // bcf header
         bcf_hrec_t* hrec = NULL; // populate header
         int ret = 0;
     };
@@ -207,6 +207,7 @@ namespace SeqLib
         }
 
         // return a array for the requested field
+        // template <typename T, typename = typename std::enable_if<std::is_same<T, char>::value || std::is_same<T, int>::value || std::is_same<T, float>::value>::type>
         template <typename T, typename S = typename T::value_type>
         typename std::enable_if<
             std::is_same<T, std::vector<char>>::value || std::is_same<T, std::vector<int>>::value || std::is_same<T, std::vector<float>>::value, void>::type
@@ -289,13 +290,22 @@ namespace SeqLib
         typename std::enable_if<std::is_same<T, int>::value || std::is_same<T, float>::value, void>::type SetInfo(std::string tag, const T& v)
         {
             ret = -1;
+            // bcf_update_info_flag(header->hdr, line, tag.c_str(), NULL, 1);
+            int tag_id = bcf_hdr_id2int(header->hdr, BCF_DT_ID, tag.c_str());
             if (std::is_same<T, int>::value)
             {
-                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), &v, 1);
+                if (bcf_hdr_id2type(header->hdr, BCF_HL_INFO, tag_id) == (BCF_HT_INT & 0xff))
+                    ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), &v, 1);
+                else
+                    throw std::runtime_error("the given type of tag " + tag + " doesn't match the header");
             }
             else if (std::is_same<T, float>::value)
             {
-                ret = bcf_update_info_float(header->hdr, line, tag.c_str(), &v, 1);
+                // bcf_hrec_set_val
+                if (bcf_hdr_id2type(header->hdr, BCF_HL_INFO, tag_id) == (BCF_HT_REAL & 0xff))
+                    ret = bcf_update_info_float(header->hdr, line, tag.c_str(), &v, 1);
+                else
+                    throw std::runtime_error("the given type of tag " + tag + " doesn't match the header");
             }
             if (ret < 0)
             {
@@ -309,18 +319,28 @@ namespace SeqLib
         SetInfo(std::string tag, const T& v)
         {
             ret = -1;
+            // bcf_update_info_flag(header->hdr, line, tag.c_str(), NULL, 1);
+            int tag_id = bcf_hdr_id2int(header->hdr, BCF_DT_ID, tag.c_str());
             if (std::is_same<T, std::vector<int>>::value)
             {
-                printf("type vector<int>\n");
-                ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
+                if (bcf_hdr_id2type(header->hdr, BCF_HL_INFO, tag_id) == (BCF_HT_INT & 0xff))
+                    ret = bcf_update_info_int32(header->hdr, line, tag.c_str(), v.data(), v.size());
+                else
+                    throw std::runtime_error("the given type of tag " + tag + " doesn't match the header");
             }
             else if (std::is_same<T, std::vector<float>>::value)
             {
-                ret = bcf_update_info_float(header->hdr, line, tag.c_str(), v.data(), v.size());
+                if (bcf_hdr_id2type(header->hdr, BCF_HL_INFO, tag_id) == (BCF_HT_REAL & 0xff))
+                    ret = bcf_update_info_float(header->hdr, line, tag.c_str(), v.data(), v.size());
+                else
+                    throw std::runtime_error("the given type of tag " + tag + " doesn't match the header");
             }
             else if (std::is_same<T, std::string>::value)
             {
-                ret = bcf_update_info_string(header->hdr, line, tag.c_str(), v.data());
+                if (bcf_hdr_id2type(header->hdr, BCF_HL_INFO, tag_id) == (BCF_HT_STR & 0xff))
+                    ret = bcf_update_info_string(header->hdr, line, tag.c_str(), v.data());
+                else
+                    throw std::runtime_error("the given type of tag " + tag + " doesn't match the header");
             }
             if (ret < 0)
             {
