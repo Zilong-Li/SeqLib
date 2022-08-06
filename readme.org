@@ -7,80 +7,7 @@ This is a fork of https://github.com/walaj/SeqLib.
 
 Features :
 - only dependency is htslib.
-- add =BcfHeader= , =BcfRecord=,  =BcfReader= and =BcfWriter= for manipulating VCF/BCF.
-
-* Usage
-see more examples [[https://github.com/Zilong-Li/SeqLib/blob/master/test/bcf-reader.cpp][test/bcf-reader.cpp]] and [[https://github.com/Zilong-Li/SeqLib/blob/master/test/bcf-writer.cpp][test/bcf-writer.cpp]] in [[file:test/]] folder
-** Bcfreader
-
-#+begin_src C++
-// Parsing VCF with subset samples in target region
-BcfReader br("test/chr20.2000001.2100000.vcf.gz", "HG00107,HG00108", "chr20:2006060-");
-BcfRecord v(br.header); // construct a variant record using header;
-vector<bool> gt; // supports vector<bool>, vector<char> and vector<int>
-int n = 0;
-while (br.GetNextVariant(v))
-{
-    v.GetGenotypes(gt);
-    if (v.isAllPhased) n++; // check if current site is phased for all samples
-}
-#+end_src
-
-** BcfWriter
-*** create a new VCF template
-
-#+begin_src C++
-BcfWriter bw("test.vcf"); // supports file suffix with bcf, bcf.gz, vcf, vcf.gz
-bw.InitalHeader("VCF4.3"); // specify the vcf version. default 4.1
-bw.header.AddFormat("GT", "1", "String", "Genotype"); // add a new format in header
-bw.header.AddInfo("AF", "A", "Float", "Estimated allele frequency in the range (0,1)"); // add info
-bw.header.AddContig("chr20"); // add chr name
-bw.header.AddSample("NA12878"); // add sample
-bw.WriteLine("chr20\t2006060\trs146931526\tG\tC\t100\tPASS\tAF=0.000998403\tGT\t1|0"); // write a vcf record from a string
-#+end_src
-
-*** use another VCF's header
-
-#+begin_src C++
-BcfReader br("./htslib/test/test-vcf-hdr-in.vcf");
-BcfRecord v(br.header); // construct a variant object
-BcfWriter bw("test.vcf");
-bw.InitalHeader(br.header); // copy br's header
-bw.WriteHeader(); // write header. this is called automatically when WriteRecord or WriteLine;
-br.GetNextVariant(v);
-bw.WriteRecord(v);
-#+end_src
-
-** BcfHeader
-#+begin_src C++
-BcfReader br("test/test-vcf-read.vcf");
-br.header.RemoveContig("1");
-br.header.RemoveContig("16");
-br.header.RemoveFilter("LowQual");
-br.header.RemoveInfo("TRAILING");
-br.header.AddFormat("GT", "1", "String", "Genotype"); // add a new format in header
-br.header.AddInfo("AF", "A", "Float", "Estimated allele frequency in the range (0,1)"); // add info
-br.header.AddContig("chr20"); // add chr name
-br.header.AddSample("NA12878"); // add sample
-cout << br.header.AsString() << endl;
-#+end_src
-
-** BcfRecord
-#+begin_src C++
-BcfReader br2("../htslib/test/index.vcf");
-BcfRecord v2(br2.header);
-br2.GetNextVariant(v2);
-v2.RemoveInfo<int>("DP");
-br2.header.AddInfo("Str", "1", "String", "this is a test for adding string in INFO");
-v2.SetInfo("Str", string{"S1S2"});
-v2.SetInfo("Str", string{"str"});
-v2.SetInfo("DP", vector<int>{1,2});
-v2.SetInfo("DP", 2);
-
-cout << br2.header.AsString() << endl;
-cout << v2.GetInfo<float>("DP") << endl;
-cout << v2.AsString() << endl;
-#+end_src
+- add https://github.com/Zilong-Li/vcfpp for manipulating VCF/BCF.
 
 * Installation
 
@@ -116,4 +43,4 @@ autoreconf -i # build the configure script and install files it uses
 make
 #+end_src
 
-*Note*: For macOS users, please link to dynamic lib instead of the static =libhts.a=. See https://github.com/samtools/htslib/issues/1176#issuecomment-722033848
+*Note*: For macOS users, please link to dynamic lib if having issues. See https://github.com/samtools/htslib/issues/1176#issuecomment-722033848
