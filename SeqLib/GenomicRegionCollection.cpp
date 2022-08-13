@@ -8,6 +8,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <zlib.h>
+#include <random>
 
 #define GZBUFFER 65472
 
@@ -82,7 +83,8 @@ namespace SeqLib
     template <class T>
     void GenomicRegionCollection<T>::Shuffle()
     {
-        std::random_shuffle(m_grv->begin(), m_grv->end());
+        auto g = std::default_random_engine{};
+        std::shuffle(m_grv->begin(), m_grv->end(), g);
     }
 
     template <class T>
