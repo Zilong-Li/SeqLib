@@ -1,6 +1,6 @@
 #include "catch.hh"
 #include <iostream>
-#include "SeqLib/vcfpp.h"
+#include "vcfpp/vcfpp.h"
 
 using namespace std;
 using namespace vcfpp;

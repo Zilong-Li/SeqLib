@@ -1,4 +1,4 @@
-#include "SeqLib/vcfpp.h"
+#include "vcfpp/vcfpp.h"
 #include "catch.hh"
 #include <iostream>
 
@@ -25,19 +25,19 @@ TEST_CASE("Parsing VCF with specific tag", "[bcf-reader]")
         }
         cout << endl;
 
-        v.getFormat("AD", ad);
+        v.getFORMAT("AD", ad);
         for (auto i : ad) {
             cout << i << ":";
         }
         cout << endl;
 
-        v.getFormat("GQ", gq);
+        v.getFORMAT("GQ", gq);
         for (auto i : gq) {
             cout << i << ":";
         }
         cout << endl;
 
-        v.getFormat("GATK", gatk);
+        v.getFORMAT("GATK", gatk);
         for (int i = 0; i < br.nsamples; i++) {
             cout << string(gatk.begin()+ i*v.nvalues, gatk.begin() + i * v.nvalues + v.nvalues - 1) << ":";
         }
