@@ -32,7 +32,6 @@ TEST_CASE("Test bcf-writer", "[bcf-writer]")
 TEST_CASE("Write BCF with custome header and variants", "[bcf-writer]")
 {
     BcfWriter bw("test.bcf");
-    bw.initalHeader();
     bw.header.addFORMAT("GT", "1", "String", "Genotype");
     bw.header.addINFO("AF", "A", "Float", "Estimated allele frequency in the range (0,1)");
     bw.header.addContig("chr20");
@@ -42,8 +41,7 @@ TEST_CASE("Write BCF with custome header and variants", "[bcf-writer]")
 
 TEST_CASE("Write VCF with custome header and variants", "[bcf-writer]")
 {
-    BcfWriter bw("test.vcf");
-    bw.initalHeader("VCF4.3");
+    BcfWriter bw("test.vcf","VCF4.3");
     bw.header.addFORMAT("GT", "1", "String", "Genotype");
     bw.header.addINFO("AF", "A", "Float", "Estimated allele frequency in the range (0,1)");
     bw.header.addContig("chr20");
@@ -56,8 +54,7 @@ TEST_CASE("Write VCF by copying header from another VCF", "[bcf-writer]")
 {
     BcfReader br("../htslib/test/test-vcf-hdr-in.vcf");
     BcfRecord v(br.header);
-    BcfWriter bw("test.vcf");
-    bw.initalHeader(br.header);
+    BcfWriter bw("test.vcf", br.header);
     bw.writeHeader();
     br.getNextVariant(v);
     bw.writeRecord(v);
