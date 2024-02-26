@@ -84,7 +84,7 @@ TEST_CASE("Parsing VCF", "[bcf-reader]")
 
 TEST_CASE("Parsing VCF with subset samples", "[bcf-reader]")
 {
-    BcfReader br("chr20.2000001.2100000.vcf.gz", "HG00107,HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116");
+    BcfReader br("chr20.2000001.2100000.vcf.gz", "","HG00107,HG00108,HG00109,HG00110,HG00111,HG00112,HG00113,HG00114,HG00115,HG00116");
     BcfRecord v(br.header);
     vector<bool> gt;
     int n = 0;
@@ -99,7 +99,7 @@ TEST_CASE("Parsing VCF with subset samples", "[bcf-reader]")
 
 TEST_CASE("Parsing VCF in target region", "[bcf-reader]")
 {
-    BcfReader br("chr20.2000001.2100000.vcf.gz", "-", "chr20:2006060");
+    BcfReader br("chr20.2000001.2100000.vcf.gz", "chr20:2006060", "-");
     BcfRecord v(br.header);
     vector<bool> gt;
     int n = 0;
