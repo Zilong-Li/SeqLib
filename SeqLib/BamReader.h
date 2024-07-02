@@ -2,7 +2,8 @@
 #define SEQLIB_BAM_POLYREADER_H
 
 #include "SeqLib/BamWalker.h"
-#include "SeqLib/ReadFilter.h"
+#include "SeqLib/GenomicRegionCollection.h"
+#include "SeqLib/BamRecord.h"
 #include "SeqLib/ThreadPool.h"
 #include <cassert>
 
