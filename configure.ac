@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.69]) ## specificy version of autoconf
-AC_INIT([SeqLib],[0.2.0],[zilong.dk@gmail.com])
+AC_INIT([SeqLib],[0.3.0],[zilong.dk@gmail.com])
 AM_INIT_AUTOMAKE(foreign)
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE([disable])
