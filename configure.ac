@@ -1,11 +1,9 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.69]) ## specificy version of autoconf
-AC_INIT([SeqLib],[0.1.1],[zilong.dk@gmail.com])
+AC_INIT([SeqLib],[0.2.0],[zilong.dk@gmail.com])
 AM_INIT_AUTOMAKE(foreign)
-dnl AC_CONFIG_SRCDIR([src/BamReader.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE([disable])
-##m4_include([m4/m4_ax_openmp.m4])
 
 # Checks for programs.
 AC_PROG_CXX ## test for cpp compiler
