@@ -6,8 +6,10 @@
 This is a fork of https://github.com/walaj/SeqLib.
 
 Features :
-- only dependency is htslib.
-- add https://github.com/Zilong-Li/vcfpp for manipulating VCF/BCF.
+- *only dependency is htslib*.
+- compatibility with arm for mac M- chip
+- no fancy functionality (e.g ssw) other than API to BAM files.
+- add [[https://github.com/Zilong-Li/vcfpp][vcfpp.h]] for API to VCF/BCF files.
 
 * Installation
 
