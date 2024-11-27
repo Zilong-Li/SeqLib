@@ -24,7 +24,8 @@ $(info "compiling tests $(BINS)" )
 
 all: $(BINS) $(OBJS)
 
-test: $(BINS) $(OBJS)
+test: $(BINS)
+	./bam-reader.bin
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -o $@ -c $< ${INC}
